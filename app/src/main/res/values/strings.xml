@@ -3,4 +3,15 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="welcome_title">Selamat Datang kembali di GymLens!</string>
+    <string name="welcome_subtitle">Lanjutkan latihanmu dari mana saja dan kapan saja</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="email_hint">Email</string>
+
+    <string name="forgot_password">Lupa Kata Sandi?</string>
+    <string name="login_button">Login</string>
+    <string name="or">OR</string>
+    <string name="google_login">Lanjutkan dengan Google</string>
+    <string name="password_hint">Kata Sandi</string>
 </resources>
