@@ -8,22 +8,22 @@
 
     <item
         android:id="@+id/navigation_training"
-        android:icon="@drawable/ic_training_black_24dp"
+        android:icon="@drawable/exercisenofill"
         android:title="@string/title_training" />
 
     <item
         android:id="@+id/navigation_scan"
-        android:icon="@drawable/ic_scan_black_24dp"
+        android:icon="@drawable/scanner"
         android:title="@string/title_scan" />
 
     <item
         android:id="@+id/navigation_walk_run"
-        android:icon="@drawable/ic_walk_run_black_24dp"
+        android:icon="@drawable/runnofill"
         android:title="@string/title_walk_run" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_profile_black_24dp"
+        android:icon="@drawable/profilenofill"
         android:title="@string/title_profile">
 
 </menu>
