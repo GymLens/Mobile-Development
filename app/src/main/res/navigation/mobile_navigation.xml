@@ -5,26 +5,39 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
+    <!-- Home Fragment -->
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.capstoneprojectmd.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
+    <!-- Training Fragment -->
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.capstoneprojectmd.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_training"
+        android:name="com.example.capstoneprojectmd.ui.training.TrainingFragment"
+        android:label="@string/title_training"
+        tools:layout="@layout/fragment_training" />
 
+    <!-- Scan Fragment -->
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.capstoneprojectmd.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_scan"
+        android:name="com.example.capstoneprojectmd.ui.Scan.ScanFragment"
+        android:label="@string/title_scan"
+        tools:layout="@layout/fragment_scan" />
+
+    <!-- Walk & Run Fragment -->
     <fragment
-        android:id="@+id/navigation_run"
-        android:name="com.example.capstoneprojectmd.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_walk_run"
+        android:name="com.example.capstoneprojectmd.ui.WalkRun.WalkRunFragment"
+        android:label="@string/title_walk_run"
+        tools:layout="@layout/fragment_walk_run" />
+
+    <!-- Profile Fragment -->
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.capstoneprojectmd.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
 </navigation>
