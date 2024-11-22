@@ -15,4 +15,7 @@
     <string name="google_login">Lanjutkan dengan Google</string>
     <string name="password_hint">Kata Sandi</string>
     <string name="full_name_hint">Nama Lengkap</string>
+    <string name="title_training">Latihanku</string>
+
+
 </resources>
