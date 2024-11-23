@@ -4,28 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/autentifikasi"
-    tools:context=".WelcomeActivity">
+    android:background="@drawable/autentifikasi">
 
-    <!-- Overlay Text Header -->
+    <!-- Header Gambar -->
+
+    <!-- Judul -->
+
     <TextView
-        android:id="@+id/headerText"
+        android:id="@+id/titleText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="48dp"
         android:gravity="center"
-        android:text="Selamat datang di GymLens\nLanjutkan latihanmu dari mana saja dan kapan saja"
-        android:textColor="@android:color/white"
+        android:text="@string/welcome_title"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:shadowColor="#000000"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="4"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="240dp" />
 
     <!-- Subtitle -->
     <TextView
@@ -33,13 +28,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="Lanjutkan latihan dan raih tujuanmu"
-        android:textColor="@android:color/white"
+        android:text="@string/welcome_subtitle"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleText" />
 
     <!-- Tab Register/Login -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,8 +42,8 @@
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="24dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/subtitleText">
 
         <!-- Tab Register -->
@@ -57,16 +51,26 @@
             android:id="@+id/registerTab"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/tab_selected_background"
-            android:text="Daftar"
-            android:textColor="@color/primary_color"
+            android:text="@string/register"
+            android:textColor="#1E4F68"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/tab_selected_background"
             app:layout_constraintEnd_toStartOf="@id/loginTab"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.5" />
 
         <!-- Tab Login -->
+        <Button
+            android:id="@+id/loginTab"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/login"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:background="@drawable/tab_unselected_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/registerTab"
+            app:layout_constraintWidth_percent="0.5" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Input Email -->
@@ -76,99 +80,83 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="24dp"
-        android:background="@drawable/rounded_input_background"
-        android:hint="Masukkan Email"
-        android:inputType="textEmailAddress"
+        android:hint="@string/email_hint"
         android:padding="12dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rounded_button_background"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
-    <!-- Input Password -->
+    <!-- Input Kata Sandi -->
     <EditText
         android:id="@+id/passwordInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="24dp"
-        android:background="@drawable/rounded_input_background"
-        android:hint="Masukkan Kata Sandi"
-        android:inputType="textPassword"
+        android:hint="@string/password_hint"
         android:padding="12dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/rounded_button_background"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emailInput" />
 
     <!-- Lupa Kata Sandi -->
     <TextView
-        android:id="@+id/forgotPasswordText"
+        android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:text="Lupa Kata Sandi?"
-        android:textColor="@color/primary_color"
+        android:text="@string/forgot_password"
         android:textSize="14sp"
+        android:textColor="#3A6EA5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordInput" />
 
-    <!-- Tombol Masuk -->
+    <!-- Tombol Login -->
     <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="24dp"
+        android:text="@string/login_button"
+        android:textColor="#FFFFFF"
         android:background="@drawable/rounded_button_background"
-        android:text="Masuk"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/forgotPasswordText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/forgotPassword" />
 
     <!-- Text OR -->
     <TextView
         android:id="@+id/orText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Atau"
-        android:textColor="@android:color/white"
+        android:text="@string/or"
         android:textSize="14sp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/loginButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginButton" />
+        android:layout_marginTop="16dp"/>
 
-    <!-- Tombol Login dengan Google -->
-
+    <!-- Tombol Lanjutkan dengan Google -->
     <Button
-        android:id="@+id/googleLoginButton"
+        android:id="@+id/googleButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="356dp"
-        android:background="@drawable/rounded_button_background"
+        android:text="@string/google_login"
         android:drawableStart="@drawable/ic_google"
-        android:drawablePadding="12dp"
-        android:padding="12dp"
-        android:text="Masuk dengan Google"
-        android:textColor="@color/black"
+        android:background="@drawable/rounded_button_background"
+        android:textColor="#000000"
+        android:paddingVertical="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/orText" />
-
-    <Button
-        android:id="@+id/loginTab"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/tab_unselected_background"
-        android:text="Masuk"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintWidth_percent="0.5"
-        tools:layout_editor_absoluteX="193dp"
-        tools:layout_editor_absoluteY="204dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
