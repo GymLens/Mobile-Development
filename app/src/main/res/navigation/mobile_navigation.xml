@@ -14,10 +14,10 @@
 
     <!-- Training Fragment -->
     <fragment
-        android:id="@+id/navigation_training"
-        android:name="com.example.capstoneprojectmd.ui.training.TrainingFragment"
-        android:label="@string/title_training"
-        tools:layout="@layout/fragment_training" />
+        android:id="@+id/navigation_history"
+        android:name="com.example.capstoneprojectmd.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
 
     <!-- Scan Fragment -->
     <fragment
