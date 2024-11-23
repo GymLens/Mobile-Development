@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:padding="16dp">
+
+    <!-- Toolbar (Kembali Button) -->
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:contentDescription="@string/back_button_description"
+        android:padding="8dp"
+        android:src="@drawable/ic_back" />
+
+    <!-- Gambar Hasil Analisis dengan Border dan Rounded Corner -->
+    <ImageView
+        android:id="@+id/resultImage"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="50dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/Scan"
+        android:background="@drawable/rounded_button_with_border"
+        android:clipToOutline="true" /> <!-- Apply rounded corners -->
+
+    <!-- Teks Hasil Analisis -->
+    <TextView
+        android:id="@+id/resultAnalysis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/resultImage"
+        android:layout_marginTop="16dp"
+        android:text="@string/result_analysis"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Nama Hasil Analisis -->
+    <TextView
+        android:id="@+id/resultName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/resultAnalysis"
+        android:layout_marginTop="8dp"
+        android:text="@string/result_name"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Deskripsi Hasil Analisis -->
+    <TextView
+        android:id="@+id/resultDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/resultName"
+        android:layout_marginTop="8dp"
+        android:text="@string/result_description"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <!-- Video Panduan dengan Rounded Corner -->
+    <RelativeLayout
+        android:id="@+id/videoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/resultDescription"
+        android:layout_marginTop="16dp">
+
+        <!-- Gambar Thumbnail Video dengan Border Hijau -->
+        <ImageView
+            android:id="@+id/videoThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/Scan"
+            android:background="@color/green"
+            android:clipToOutline="true" /> <!-- Apply rounded corners -->
+
+        <!-- Play Button -->
+        <ImageView
+            android:id="@+id/playButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_play"
+        android:contentDescription="@string/play_button_description" />
+
+        <!-- Teks di dalam Video Thumbnail -->
+        <TextView
+            android:id="@+id/videoThumbnailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="@string/panduan_barbel"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+

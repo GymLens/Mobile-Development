@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/Group364">
+    android:layout_height="match_parent">
+
+    <!-- Latar Belakang -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/Scan" />
+
+    <!-- Layer Blur -->
+    <View
+        android:id="@+id/blurOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/blur_white" />
 
     <!-- Toolbar -->
     <TextView
@@ -13,7 +28,7 @@
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
         android:text="Scan GymLens"
-        android:textColor="@color/gray"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -23,12 +38,11 @@
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_margin="16dp"
-        android:background="@drawable/circle_background"
         android:contentDescription="Back"
         android:padding="8dp"
         android:src="@drawable/ic_back" />
 
-    <!-- Main Content -->
+    <!-- Konten Utama -->
     <LinearLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
@@ -39,17 +53,23 @@
         android:gravity="center">
 
         <!-- Image Preview -->
-        <ImageView
-            android:id="@+id/previewImage"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginVertical="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/preview_placeholder"
-            android:background="@drawable/rounded_button_background" />
+            android:layout_weight="1"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
 
-        <!-- Button Group -->
+            <ImageView
+                android:id="@+id/previewImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/Scan" />
+        </androidx.cardview.widget.CardView>
+
+        <!-- Grup Tombol -->
         <LinearLayout
             android:id="@+id/button_group"
             android:layout_width="match_parent"
@@ -62,26 +82,28 @@
                 android:id="@+id/cameraButton"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/rounded_button_with_border"
+                android:backgroundTint="@color/green"
                 android:text="Camera"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <Button
                 android:id="@+id/galleryButton"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_weight="1"
                 android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:background="@drawable/rounded_button_with_border"
+                android:backgroundTint="@color/green"
                 android:text="Galeri"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- Analyze Button -->
+        <!-- Tombol Analisis -->
         <Button
             android:id="@+id/analyzeButton"
             android:layout_width="match_parent"
@@ -90,7 +112,8 @@
             android:background="@drawable/rounded_button_with_border"
             android:text="Analisis"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:backgroundTint="@color/green"/>
     </LinearLayout>
 
 </RelativeLayout>

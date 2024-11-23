@@ -20,5 +20,10 @@
     <string name="title_profile">Profil</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back_button_description">Kembali</string>
+    <string name="result_analysis">Hasil Analisis</string>
+    <string name="result_name">Kettlebell</string>
+    <string name="result_description">Kettlebell adalah alat latihan serbaguna yang memungkinkan Anda melakukan beragam gerakan kompleks yang menargetkan otot inti, otot lengan dan bahu, hingga otot kaki, kettlebell mampu membentuk tubuh Anda secara menyeluruh. Selain itu, latihan kettlebell juga sangat efektif dalam meningkatkan daya tahan, fleksibilitas, dan koordinasi tubuh, sehingga Anda tidak hanya akan lebih kuat, tetapi juga lebih lincah dan seimbang.</string>
+    <string name="panduan_barbel">panduan menggunakan barbel</string>
 
 </resources>
