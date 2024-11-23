@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">CapstoneProjectMD</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">Beranda</string>
     <string name="title_notifications">Notifications</string>
     <string name="welcome_title">Selamat Datang kembali di GymLens!</string>
     <string name="welcome_subtitle">Lanjutkan latihanmu dari mana saja dan kapan saja</string>
