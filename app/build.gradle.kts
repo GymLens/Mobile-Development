@@ -53,4 +53,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation ("androidx.activity:activity-ktx:1.5.0")
+    implementation ("androidx.fragment:fragment-ktx:1.5.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
 }
