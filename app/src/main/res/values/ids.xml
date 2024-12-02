@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="analysisTitle" type="id">Gambaranalisis</item>
+    <item name="Gambaranalisis" type="id" />
 </resources>

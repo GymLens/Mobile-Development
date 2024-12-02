@@ -57,5 +57,7 @@ dependencies {
     implementation ("androidx.fragment:fragment-ktx:1.5.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+
 
 }

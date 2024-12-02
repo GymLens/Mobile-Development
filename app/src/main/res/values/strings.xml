@@ -20,7 +20,6 @@
     <string name="register_welcome_title">Selamat Datang di GymLens</string>
     <string name="register_title">Mulai Petualangan Fitnessmu!</string>
     <string name="register_subtitle">Identifikasi alat gym sekarang dan dapatkan rekomendasi latihan gratis.</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back_button_description">Kembali</string>
     <string name="result_analysis">Hasil Analisis</string>

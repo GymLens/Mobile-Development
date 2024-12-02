@@ -20,7 +20,7 @@
         android:layout_height="250dp"
         android:layout_marginTop="50dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/Scan"
+        android:src="@drawable/scan"
         android:background="@drawable/rounded_button_with_border"
         android:clipToOutline="true" /> <!-- Apply rounded corners -->
 
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/Scan"
+            android:src="@drawable/scan"
             android:background="@color/green"
             android:clipToOutline="true" /> <!-- Apply rounded corners -->
 

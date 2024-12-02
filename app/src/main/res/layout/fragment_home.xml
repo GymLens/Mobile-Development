@@ -17,8 +17,8 @@
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintMarginTop="16dp"
-        app:layout_constraintMarginStart="16dp" />
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
 
     <TextView
         android:id="@+id/tv_subtitle"
@@ -29,8 +29,8 @@
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/tv_greeting"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintMarginTop="8dp"
-        app:layout_constraintMarginStart="16dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp" />
 
     <!-- Histori Section -->
     <TextView
@@ -43,8 +43,8 @@
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintMarginTop="16dp"
-        app:layout_constraintMarginStart="16dp" />
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_history"
@@ -54,9 +54,9 @@
         app:layout_constraintTop_toBottomOf="@id/tv_history"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintMarginTop="8dp"
-        app:layout_constraintMarginStart="16dp"
-        app:layout_constraintMarginEnd="16dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -66,12 +66,11 @@
                 android:id="@+id/img_barbell"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_barbell"
                 android:contentDescription="Barbell Image"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintMarginStart="16dp" />
+                android:layout_marginStart="16dp" />
 
             <TextView
                 android:id="@+id/tv_barbell_title"
@@ -82,20 +81,20 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/img_barbell"
-                app:layout_constraintMarginStart="8dp"
-                app:layout_constraintMarginTop="16dp" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp" />
 
             <Button
                 android:id="@+id/btn_show_all"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/primary"
+                android:backgroundTint="@color/green"
                 android:text="Tampilkan Semua"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintMarginEnd="16dp" />
+                android:layout_marginEnd="16dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -108,9 +107,9 @@
         app:layout_constraintTop_toBottomOf="@id/card_history"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintMarginTop="16dp"
-        app:layout_constraintMarginStart="16dp"
-        app:layout_constraintMarginEnd="16dp">
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -125,8 +124,8 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintMarginTop="16dp"
-                app:layout_constraintMarginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
                 app:layout_constraintEnd_toStartOf="@id/tv_calories"
                 app:layout_constraintHorizontalWeight="1" />
 
@@ -139,7 +138,7 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_steps"
-                app:layout_constraintMarginStart="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toStartOf="@id/tv_distance"
                 app:layout_constraintHorizontalWeight="1" />
 
@@ -152,7 +151,7 @@
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_calories"
-                app:layout_constraintMarginStart="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontalWeight="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>

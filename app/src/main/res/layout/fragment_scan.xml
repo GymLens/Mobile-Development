@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/Scan" />
+        android:src="@drawable/scan" />
 
     <!-- Layer Blur -->
     <View
@@ -39,8 +39,7 @@
         android:layout_alignParentStart="true"
         android:layout_margin="16dp"
         android:contentDescription="Back"
-        android:padding="8dp"
-        android:src="@drawable/ic_back" />
+        android:padding="8dp" />
 
     <!-- Konten Utama -->
     <LinearLayout
@@ -66,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/Scan" />
+                android:src="@drawable/scan" />
         </androidx.cardview.widget.CardView>
 
         <!-- Grup Tombol -->
