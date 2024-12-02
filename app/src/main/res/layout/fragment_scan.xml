@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Latar Belakang -->
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
@@ -13,51 +12,39 @@
         android:scaleType="centerCrop"
         android:src="@drawable/scan" />
 
-    <!-- Layer Blur -->
     <View
         android:id="@+id/blurOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/blur_white" />
 
-    <!-- Toolbar -->
-    <TextView
-        android:id="@+id/toolbar_title"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"
-        android:text="Scan GymLens"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/backButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentStart="true"
         android:layout_margin="16dp"
-        android:contentDescription="Back"
-        android:padding="8dp" />
+        android:backgroundTint="@color/white"
+        android:foregroundGravity="bottom"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_back"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
-    <!-- Konten Utama -->
     <LinearLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_title"
+        android:layout_below="@id/fabBack"
         android:orientation="vertical"
         android:padding="16dp"
         android:gravity="center">
 
-        <!-- Image Preview -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginVertical="16dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="16dp"
+            android:layout_weight="2"
+            app:cardCornerRadius="40dp"
             app:cardElevation="4dp">
 
             <ImageView
@@ -68,7 +55,6 @@
                 android:src="@drawable/scan" />
         </androidx.cardview.widget.CardView>
 
-        <!-- Grup Tombol -->
         <LinearLayout
             android:id="@+id/button_group"
             android:layout_width="match_parent"
@@ -85,7 +71,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_button_with_border"
                 android:backgroundTint="@color/green"
-                android:text="Camera"
+                android:text="@string/kamera"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
@@ -97,22 +83,21 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_button_with_border"
                 android:backgroundTint="@color/green"
-                android:text="Galeri"
+                android:text="@string/galeri"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- Tombol Analisis -->
         <Button
             android:id="@+id/analyzeButton"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_button_with_border"
-            android:text="Analisis"
+            android:text="@string/analisis"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:backgroundTint="@color/green"/>
+            android:textSize="16sp" />
+
     </LinearLayout>
 
 </RelativeLayout>
