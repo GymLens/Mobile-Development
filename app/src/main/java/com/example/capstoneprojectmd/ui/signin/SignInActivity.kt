@@ -3,17 +3,15 @@ package com.example.capstoneprojectmd.ui.signin
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.capstoneprojectmd.MainActivity
 import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.ActivitySigninBinding
 import com.example.capstoneprojectmd.model.LoginStatus
+import com.example.capstoneprojectmd.ui.chatbot.ChatFragment
 import com.example.capstoneprojectmd.ui.signup.SignupActivity
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -47,7 +45,7 @@ class SignInActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.GONE
                     binding.loginButton.isEnabled = true
                     binding.googleButton.isEnabled = true
-                    navigateToMainActivity(status.user)
+                    navigateToChatActivity(status.user)
                 }
                 is LoginStatus.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -111,13 +109,13 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToMainActivity(user: FirebaseUser) {
+    private fun navigateToChatActivity(user: FirebaseUser) {
         AlertDialog.Builder(this).apply {
             setTitle("Welcome!")
             setMessage("Login successful! User: ${user.email}")
             setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
-                startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+                startActivity(Intent(this@SignInActivity, ChatFragment::class.java))
                 finish()
             }
             create()
@@ -130,27 +128,6 @@ class SignInActivity : AppCompatActivity() {
             setTitle(title)
             setMessage(message)
             setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-            create()
-            show()
-        }
-    }
-
-    // This function can be used to prompt the user to input their password.
-    private fun promptPasswordInput(account: GoogleSignInAccount) {
-        val passwordInput = EditText(this)
-        AlertDialog.Builder(this).apply {
-            setTitle("Enter Password")
-            setMessage("Please enter your account password to continue.")
-            setView(passwordInput)
-            setPositiveButton("Submit") { dialog, _ ->
-                val password = passwordInput.text.toString()
-                // Handle the password input here (e.g., validate with Firebase)
-                // This might be redundant as Google Sign-In does not require password input after selecting an account.
-                dialog.dismiss()
-            }
-            setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
             create()
             show()
         }

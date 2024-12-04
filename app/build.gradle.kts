@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.generativeai)
+    implementation(libs.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -81,6 +82,8 @@ dependencies {
     implementation ("com.google.android.gms:play-services-ads:22.3.0")
     implementation ("com.google.android.material:material:1.9.0")
     implementation ("com.google.firebase:firebase-auth:21.0.1")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.0")// Ensure you're using the correct navigation library version
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.0")
 
     // Google Sign-In
     implementation ("com.google.android.gms:play-services-auth:20.3.0")

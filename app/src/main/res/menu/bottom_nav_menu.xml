@@ -17,9 +17,9 @@
         android:title="@string/title_scan" />
 
     <item
-        android:id="@+id/navigation_walk_run"
+        android:id="@+id/navigation_chatbot"
         android:icon="@drawable/runnofill"
-        android:title="@string/title_walk_run" />
+        android:title="@string/title_chatbot" />
 
     <item
         android:id="@+id/navigation_profile"

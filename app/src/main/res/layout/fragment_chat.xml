@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.chatbot.ChatActivity">
+    tools:context=".ui.chatbot.ChatFragment">
 
     <!-- Chat RecyclerView -->
     <androidx.appcompat.widget.Toolbar
@@ -55,7 +55,7 @@
         app:layout_constraintBottom_toTopOf="@id/messageInputLayout"
         android:padding="16dp"
         android:clipToPadding="false"
-       />
+        />
 
     <!-- Message Input Layout -->
     <LinearLayout
