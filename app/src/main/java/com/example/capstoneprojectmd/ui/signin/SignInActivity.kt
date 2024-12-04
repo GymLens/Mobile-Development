@@ -39,18 +39,15 @@ class SignInActivity : AppCompatActivity() {
                 is LoginStatus.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.loginButton.isEnabled = false
-                    binding.googleButton.isEnabled = false
                 }
                 is LoginStatus.Success -> {
                     binding.progressBar.visibility = View.GONE
                     binding.loginButton.isEnabled = true
-                    binding.googleButton.isEnabled = true
                     navigateToChatActivity(status.user)
                 }
                 is LoginStatus.Error -> {
                     binding.progressBar.visibility = View.GONE
                     binding.loginButton.isEnabled = true
-                    binding.googleButton.isEnabled = true
                     showDialog("Login Failed", status.message, true)
                 }
             }
@@ -71,10 +68,6 @@ class SignInActivity : AppCompatActivity() {
         binding.registerTab.setOnClickListener {
             startActivity(Intent(this, SignupActivity::class.java))
             finish()
-        }
-
-        binding.googleButton.setOnClickListener {
-            signInWithGoogle()
         }
 
         binding.forgotPassword.setOnClickListener {
