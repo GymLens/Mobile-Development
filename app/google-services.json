@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "241705916714",
+    "project_id": "gym-lens",
+    "storage_bucket": "gym-lens.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:241705916714:android:50450236a6a41be99ee653",
+        "android_client_info": {
+          "package_name": "com.example.capstoneprojectmd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "241705916714-n58metmhdt55onliq46lc20ersvht0mp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAck1GU7sgRCXtvIiGf2fzbsTNJ0__iOhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "241705916714-n58metmhdt55onliq46lc20ersvht0mp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

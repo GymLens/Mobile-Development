@@ -1,25 +1,29 @@
 package com.example.capstoneprojectmd.ui.splashscreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.example.capstoneprojectmd.MainActivity
-import com.example.capstoneprojectmd.R // Pastikan ini adalah R yang benar untuk referensi layout
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.capstoneprojectmd.R
 
+
+import com.example.capstoneprojectmd.ui.welcome.WelcomeActivity
+
+
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash_screen)
+        setContentView(R.layout.activity_splash)
 
-        // Menggunakan Coroutine untuk delay selama 3 detik
-        lifecycleScope.launch {
-            delay(3000) // Menunggu selama 3 detik
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+        supportActionBar?.hide()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = Intent(this@SplashActivity, WelcomeActivity::class.java)
             startActivity(intent)
-            finish() // Menutup aktivitas Splash Screen
-        }
+            finish()
+        }, 1000)
     }
 }

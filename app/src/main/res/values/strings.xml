@@ -27,8 +27,18 @@
     <string name="result_description">Kettlebell adalah alat latihan serbaguna yang memungkinkan Anda melakukan beragam gerakan kompleks yang menargetkan otot inti, otot lengan dan bahu, hingga otot kaki, kettlebell mampu membentuk tubuh Anda secara menyeluruh. Selain itu, latihan kettlebell juga sangat efektif dalam meningkatkan daya tahan, fleksibilitas, dan koordinasi tubuh, sehingga Anda tidak hanya akan lebih kuat, tetapi juga lebih lincah dan seimbang.</string>
     <string name="panduan_barbel">panduan menggunakan barbel</string>
     <string name="play_button_description">play</string>
+<<<<<<< Updated upstream
     <string name="galeri">Galeri</string>
     <string name="kamera">Kamera</string>
     <string name="analisis">Analisis</string>
+=======
+    <string name="title_welcome_page">Selamat datang di GymLens</string>
+    <string name="message_welcome_page">Bersama GymLens! \nLacak perjalanan kebugaran Anda dan capai tujuan Anda</string>
+    <string name="signup">signup</string>
+    <string name="signup_button">Daftar</string>
+    <string name="title_sign_up">signup</string>
+    <string name="title_login">signin</string>
+    <string name="default_web_client_id">241705916714-n58metmhdt55onliq46lc20ersvht0mp.apps.googleusercontent.com</string>
+>>>>>>> Stashed changes
 
 </resources>
