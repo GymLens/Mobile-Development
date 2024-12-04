@@ -3,6 +3,8 @@ package com.example.capstoneprojectmd.ui.signin
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -85,18 +87,18 @@ class SignInActivity : AppCompatActivity() {
         val passwordVisibilityToggle = binding.passwordVisibilityToggle
 
         passwordVisibilityToggle.setOnClickListener {
-            // Toggle the inputType between visible and hidden password
-            if (passwordInput.inputType == InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-                // Show password
-                passwordInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
-                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility_off) // Change icon to "Hide"
+            // Mengecek apakah password sedang disembunyikan atau tidak
+            if (passwordInput.transformationMethod is PasswordTransformationMethod) {
+                // Ubah ke teks biasa (show password)
+                passwordInput.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility_off) // Ganti ikon ke "Hide"
             } else {
-                // Hide password
-                passwordInput.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility) // Change icon to "Show"
+                // Ubah ke password (hide password)
+                passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility) // Ganti ikon ke "Show"
             }
 
-            // Move the cursor to the end of the input
+            // Update kursor agar tetap berada di akhir teks
             passwordInput.setSelection(passwordInput.text.length)
         }
     }
