@@ -39,18 +39,15 @@ class SignupActivity : AppCompatActivity() {
                 is SignupStatus.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.signupButton.isEnabled = false
-                    binding.googleButton.isEnabled = false
                 }
                 is SignupStatus.Success -> {
                     binding.progressBar.visibility = View.GONE
                     binding.signupButton.isEnabled = true
-                    binding.googleButton.isEnabled = true
                     navigateToMainActivity(status.user)
                 }
                 is SignupStatus.Error -> {
                     binding.progressBar.visibility = View.GONE
                     binding.signupButton.isEnabled = true
-                    binding.googleButton.isEnabled = true
                     showDialog("Signup Failed", status.message, true)
                 }
             }
@@ -71,10 +68,6 @@ class SignupActivity : AppCompatActivity() {
 
         binding.loginTab.setOnClickListener {
             finish() // Close SignupActivity to return to the SignInActivity
-        }
-
-        binding.googleButton.setOnClickListener {
-            signUpWithGoogle()
         }
     }
 
