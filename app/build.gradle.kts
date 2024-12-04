@@ -56,6 +56,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.generativeai)
@@ -82,14 +84,17 @@ dependencies {
     implementation ("com.google.android.gms:play-services-ads:22.3.0")
     implementation ("com.google.android.material:material:1.9.0")
     implementation ("com.google.firebase:firebase-auth:21.0.1")
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.0")// Ensure you're using the correct navigation library version
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.0")
 
-    // Google Sign-In
+
     implementation ("com.google.android.gms:play-services-auth:20.3.0")
 
     implementation ("com.google.auth:google-auth-library-oauth2-http:1.15.0")
     implementation ("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation ("com.google.android.material:material:1.9.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.3")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.3")
+    implementation ("com.google.android.material:material:1.9.0")
 
 
 }
