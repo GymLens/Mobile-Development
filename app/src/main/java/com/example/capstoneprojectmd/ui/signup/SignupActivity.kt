@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.example.capstoneprojectmd.MainActivity
 import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.ActivitySignupBinding
+import com.example.capstoneprojectmd.ui.signin.SignInActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -109,7 +110,7 @@ class SignupActivity : AppCompatActivity() {
             setMessage("Registration successful! User: ${user.email}")
             setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
-                startActivity(Intent(this@SignupActivity, MainActivity::class.java))
+                startActivity(Intent(this@SignupActivity, SignInActivity::class.java))
                 finish()
             }
             create()
