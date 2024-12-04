@@ -2,6 +2,8 @@ package com.example.capstoneprojectmd.ui.signup
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
@@ -52,6 +54,9 @@ class SignupActivity : AppCompatActivity() {
                 }
             }
         })
+
+        // Set up password visibility toggle
+        setupPasswordVisibilityToggle()
     }
 
     private fun setupActions() {
@@ -68,6 +73,27 @@ class SignupActivity : AppCompatActivity() {
 
         binding.loginTab.setOnClickListener {
             finish() // Close SignupActivity to return to the SignInActivity
+        }
+    }
+
+    private fun setupPasswordVisibilityToggle() {
+        val passwordInput = binding.passwordInput
+        val passwordVisibilityToggle = binding.passwordVisibilityToggle
+
+        passwordVisibilityToggle.setOnClickListener {
+            // Mengecek apakah password sedang disembunyikan atau tidak
+            if (passwordInput.transformationMethod is PasswordTransformationMethod) {
+                // Ubah ke teks biasa (show password)
+                passwordInput.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility_off) // Ganti ikon ke "Hide"
+            } else {
+                // Ubah ke password (hide password)
+                passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
+                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility) // Ganti ikon ke "Show"
+            }
+
+            // Update kursor agar tetap berada di akhir teks
+            passwordInput.setSelection(passwordInput.text.length)
         }
     }
 
