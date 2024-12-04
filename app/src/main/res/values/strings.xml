@@ -17,7 +17,7 @@
     <string name="title_scan">GymLens</string>
     <string name="title_walk_run">Lari</string>
     <string name="title_profile">Profil</string>
-    <string name="register_welcome_title">Selamat Datang di GymLens</string>
+    <string name="register_welcome_title">Selamat Datang di GymLens!</string>
     <string name="register_title">Mulai Petualangan Fitnessmu!</string>
     <string name="register_subtitle">Identifikasi alat gym sekarang dan dapatkan rekomendasi latihan gratis.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -30,13 +30,14 @@
     <string name="galeri">Galeri</string>
     <string name="kamera">Kamera</string>
     <string name="analisis">Analisis</string>
-
-    <!-- New entries -->
-    <string name="title_welcome_page">Selamat datang di GymLens</string>
-    <string name="message_welcome_page">Bersama GymLens! \nLacak perjalanan kebugaran Anda dan capai tujuan Anda</string>
+    <string name="title_welcome_page">Selamat datang di GymLens!</string>
+    <string name="message_welcome_page">Mulailah perjalanan kebugaran Anda dengan GymLens dan buat setiap latihan lebih efektif dan menyenangkan.</string>
     <string name="signup">signup</string>
     <string name="signup_button">Daftar</string>
     <string name="title_sign_up">signup</string>
     <string name="title_login">signin</string>
     <string name="default_web_client_id">241705916714-n58metmhdt55onliq46lc20ersvht0mp.apps.googleusercontent.com</string>
+    <string name="password">Kata Sandi</string>
+    <string name="email">Email</string>
+    <string name="full_name">Nama</string>
 </resources>

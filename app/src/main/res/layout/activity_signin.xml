@@ -60,7 +60,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="54dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bgregisterlogin"
@@ -69,30 +69,49 @@
                 app:layout_constraintTop_toBottomOf="@id/subtitleText"
                 tools:ignore="NotSibling">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/registerTab"
-                    android:layout_width="0dp"
+                    android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/tab_selected_background"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/register"
+                    android:textSize="14sp"
                     android:textColor="@color/green"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_semibold"
+                    app:cornerRadius="25dp"
+                    android:backgroundTint="@color/white"
                     app:layout_constraintEnd_toStartOf="@id/loginTab"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintWidth_percent="0.5" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/loginTab"
-                    android:layout_width="0dp"
+                    android:layout_width="140dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/tab_unselected_background"
+                    android:layout_marginStart="0dp"
                     android:text="@string/login"
+                    android:textSize="14sp"
                     android:textColor="@color/green"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/inter_semibold"
+                    app:cornerRadius="25dp"
+                    android:backgroundTint="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/registerTab"
-                    app:layout_constraintWidth_percent="0.5" />
+                    app:layout_constraintStart_toEndOf="@id/registerTab" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Email Label -->
+            <TextView
+                android:id="@+id/emailLabel"
+                android:layout_width="90dp"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/email"
+                android:textColor="@color/green"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
             <!-- Email Input Field -->
             <EditText
@@ -100,14 +119,29 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
                 android:background="@drawable/rounded_button_background"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
+                android:fontFamily="@font/inter_medium"
                 android:padding="12dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+                app:layout_constraintTop_toBottomOf="@id/emailLabel" />
+
+            <!-- Password Label -->
+            <TextView
+                android:id="@+id/passwordLabel"
+                android:layout_width="120dp"
+                android:layout_height="36dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="@string/password"
+                android:textColor="@color/green"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailInput" />
 
             <!-- Password Input Field -->
             <EditText
@@ -115,16 +149,33 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
+
                 android:background="@drawable/rounded_button_background"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
+                android:fontFamily="@font/inter_medium"
                 android:padding="12dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/emailInput" />
+                app:layout_constraintTop_toBottomOf="@id/passwordLabel" />
+
+            <!-- Toggle Password Visibility -->
 
             <!-- Forgot Password -->
+            <ImageView
+                android:id="@+id/passwordVisibilityToggle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="40dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_visibility"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/passwordInput"
+                app:tint="@color/green" />
+
             <TextView
                 android:id="@+id/forgotPassword"
                 android:layout_width="wrap_content"
@@ -132,8 +183,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
                 android:text="@string/forgot_password"
+                android:fontFamily="@font/inter_semibold"
                 android:textColor="@color/green"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/passwordInput" />
 
@@ -147,43 +199,13 @@
                 app:backgroundTint="@color/green"
                 android:text="@string/login_button"
                 android:textColor="@color/white"
+                android:fontFamily="@font/inter_semibold"
                 android:padding="14dp"
+                android:textSize="16sp"
                 app:cornerRadius="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/forgotPassword" />
-
-            <!-- OR Text -->
-            <TextView
-                android:id="@+id/orText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:text="@string/or"
-                android:textColor="@color/green"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/loginButton" />
-
-            <!-- Google Sign-In Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/googleButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="8dp"
-                app:backgroundTint="@color/green"
-                android:text="@string/google_login"
-                android:textColor="@color/white"
-                android:padding="14dp"
-                app:cornerRadius="25dp"
-                android:drawableStart="@drawable/google"
-                android:drawablePadding="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/orText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -194,9 +216,9 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_centerInParent="true"
-    app:indicatorSize="56dp"
-    app:trackThickness="8dp"
-    android:visibility="gone"
+        app:indicatorSize="56dp"
+        app:trackThickness="8dp"
+        android:visibility="gone"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
