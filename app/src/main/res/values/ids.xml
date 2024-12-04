@@ -1,4 +1,5 @@
 <resources>
     <item name="Gambaranalisis" type="id" />
     <item name="fragment_container" type="id" />
+    <item name="nav_host_fragment_activity_main" type="id" />
 </resources>
