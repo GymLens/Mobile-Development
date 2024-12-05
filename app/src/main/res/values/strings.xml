@@ -40,9 +40,12 @@
     <string name="password">Kata Sandi</string>
     <string name="email">Email</string>
     <string name="full_name">Nama</string>
-    <string name="camera">Kamera\n</string>
+    <string name="camera">Kamera</string>
     <string name="gallery">Galeri</string>
-    <string name="analyze">Analisis\n</string>
+    <string name="analyze">Analisis</string>
     <string name="video_guide">Video Panduan Penggunaan Alat</string>
     <string name="title_run">Run Tracker</string>
+    <string name="title_result">Analisis</string>
+    <string name="halo">Halo</string>
+    <string name="subtitle_home">Periksa Ikhtisar Kesehatan Anda</string>
 </resources>

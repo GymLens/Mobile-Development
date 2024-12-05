@@ -12,15 +12,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.FragmentScanBinding
 import com.example.capstoneprojectmd.helper.ImageClassifierHelper
+import com.google.android.exoplayer2.offline.DownloadService.start
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,33 +36,27 @@ class ScanFragment : Fragment() {
     private val imageViewModel: ImageViewModel by viewModels()
     private lateinit var currentPhotoUri: Uri
 
-    private val cameraPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-        if (isGranted) {
-            Log.d(TAG, "Camera permission granted.")
-            startCamera()
-        } else {
-            Log.w(TAG, "Camera permission denied.")
-            showToast("Camera permission denied.")
+    private val cameraPermissionLauncher: ActivityResultLauncher<String> =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                Log.d(TAG, "Camera permission granted.")
+                startCamera()
+            } else {
+                Log.w(TAG, "Camera permission denied.")
+                showToast("Camera permission denied.")
+            }
         }
-    }
 
-    private val cameraResultLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
-        if (isSuccess) {
-            Log.d(TAG, "Camera capture success. URI: $currentPhotoUri")
-            startCropActivity(currentPhotoUri)
-        } else {
-            Log.e(TAG, "Camera capture failed.")
-            showToast("Image capture failed.")
+    private val cameraResultLauncher: ActivityResultLauncher<Uri> =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+            if (isSuccess) {
+                Log.d(TAG, "Camera capture success. URI: $currentPhotoUri")
+                startCropActivity(currentPhotoUri)
+            } else {
+                Log.e(TAG, "Camera capture failed.")
+                showToast("Image capture failed.")
+            }
         }
-    }
-
-    // Gallery result launcher
-    private val galleryResultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            Log.d(TAG, "Gallery image selected: $uri")
-            startCropActivity(it)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -112,12 +109,13 @@ class ScanFragment : Fragment() {
     }
 
     private fun startGallery() {
-        galleryResultLauncher.launch("image/*")
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, REQUEST_GALLERY)
     }
 
     private fun startCamera() {
         val photoFile = File(requireContext().externalCacheDir, "photo_${System.currentTimeMillis()}.jpg")
-        currentPhotoUri = FileProvider.getUriForFile(requireContext(), "${requireActivity()}.packageName.fileprovider", photoFile)
+        currentPhotoUri = FileProvider.getUriForFile(requireContext(), "${requireActivity().packageName}.fileprovider", photoFile)
         cameraResultLauncher.launch(currentPhotoUri)
     }
 
@@ -130,32 +128,55 @@ class ScanFragment : Fragment() {
             .start(requireContext(), this)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            REQUEST_GALLERY -> if (resultCode == RESULT_OK) {
+                val uri = data?.data
+                uri?.let { startCropActivity(it) }
+            }
+            UCrop.REQUEST_CROP -> if (resultCode == RESULT_OK) {
+                val resultUri = UCrop.getOutput(data ?: return)
+                resultUri?.let {
+                    imageViewModel.setImageUri(it)
+                    showImage(it)
+                }
+            }
+        }
+    }
+
     private fun showImage(uri: Uri) {
         binding.previewImageView.setImageURI(uri)
     }
 
     private fun analyzeImage(uri: Uri) {
+        // Show the progress bar immediately on the main thread
         showProgressBar(true)
         Log.d(TAG, "Starting image analysis...")
 
         lifecycleScope.launch {
             try {
+                // Perform analysis in a background thread
                 val result = withContext(Dispatchers.IO) {
-                    imageClassifier.classifyStaticImage(uri)
+                    imageClassifier.classifyStaticImage(uri) // Blocking call for image classification
                 }
 
                 val predictedLabel = result.split(",")[0].substringAfter("Predicted Class: ").trim()
                 val videoUrl = imageClassifier.getVideoUrl(predictedLabel)
 
+                // Once the analysis is done, hide the progress bar
                 if (videoUrl != null) {
                     Log.d(TAG, "Analysis successful. Predicted Label: $predictedLabel")
 
-                    // Pindahkan ke ResultFragment
-                    val resultFragment = ResultFragment.newInstance(result, uri.toString(), videoUrl)
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, resultFragment)
-                        .addToBackStack(null)
-                        .commit()
+                    // Create a bundle with the analysis results
+                    val bundle = Bundle().apply {
+                        putString("RESULT", result)
+                        putString("IMAGE_URI", uri.toString())
+                        putString("VIDEO_URL", videoUrl)
+                    }
+
+                    // Use NavController to navigate to ResultFragment with the bundle
+                    findNavController().navigate(R.id.action_navigation_scan_to_resultFragment, bundle)
 
                 } else {
                     Log.w(TAG, "No video URL found for predicted label.")
@@ -165,6 +186,7 @@ class ScanFragment : Fragment() {
                 Log.e(TAG, "Error during image analysis: ${e.message}")
                 showToast("Error during analysis.")
             } finally {
+                // Ensure the progress bar is hidden after analysis is completed
                 showProgressBar(false)
                 Log.d(TAG, "Image analysis completed.")
             }
@@ -172,7 +194,16 @@ class ScanFragment : Fragment() {
     }
 
     private fun showProgressBar(isVisible: Boolean) {
-        binding.progressBar.visibility = if (isVisible) View.VISIBLE else View.GONE
+        // Ensure this is called on the main thread for UI updates
+        binding.progressBar.post {
+            binding.progressBar.visibility = if (isVisible) {
+                Log.d(TAG, "Setting ProgressBar visibility to VISIBLE")
+                View.VISIBLE
+            } else {
+                Log.d(TAG, "Setting ProgressBar visibility to GONE")
+                View.GONE
+            }
+        }
     }
 
     private fun showToast(message: String) {
@@ -181,5 +212,6 @@ class ScanFragment : Fragment() {
 
     companion object {
         private const val TAG = "ScanFragment"
+        private const val REQUEST_GALLERY = 100
     }
 }
