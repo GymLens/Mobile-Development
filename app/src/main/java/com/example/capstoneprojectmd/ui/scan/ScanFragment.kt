@@ -1,6 +1,7 @@
 package com.example.capstoneprojectmd.ui.scan
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -11,11 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.FragmentScanBinding
 import com.example.capstoneprojectmd.helper.ImageClassifierHelper
 import com.yalantis.ucrop.UCrop
@@ -50,11 +53,18 @@ class ScanFragment : Fragment() {
         }
     }
 
+    // Gallery result launcher
+    private val galleryResultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            Log.d(TAG, "Gallery image selected: $uri")
+            startCropActivity(it)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentScanBinding.inflate(inflater, container, false)
 
         try {
@@ -102,13 +112,12 @@ class ScanFragment : Fragment() {
     }
 
     private fun startGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, REQUEST_GALLERY)
+        galleryResultLauncher.launch("image/*")
     }
 
     private fun startCamera() {
         val photoFile = File(requireContext().externalCacheDir, "photo_${System.currentTimeMillis()}.jpg")
-        currentPhotoUri = FileProvider.getUriForFile(requireContext(), "$requireActivity().packageName.fileprovider", photoFile)
+        currentPhotoUri = FileProvider.getUriForFile(requireContext(), "${requireActivity()}.packageName.fileprovider", photoFile)
         cameraResultLauncher.launch(currentPhotoUri)
     }
 
@@ -119,23 +128,6 @@ class ScanFragment : Fragment() {
             .withMaxResultSize(800, 800)
             .withOptions(UCrop.Options().apply { setFreeStyleCropEnabled(true) })
             .start(requireContext(), this)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            REQUEST_GALLERY -> if (resultCode == RESULT_OK) {
-                val uri = data?.data
-                uri?.let { startCropActivity(it) }
-            }
-            UCrop.REQUEST_CROP -> if (resultCode == RESULT_OK) {
-                val resultUri = UCrop.getOutput(data ?: return)
-                resultUri?.let {
-                    imageViewModel.setImageUri(it)
-                    showImage(it)
-                }
-            }
-        }
     }
 
     private fun showImage(uri: Uri) {
@@ -179,7 +171,6 @@ class ScanFragment : Fragment() {
         }
     }
 
-
     private fun showProgressBar(isVisible: Boolean) {
         binding.progressBar.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
@@ -190,6 +181,5 @@ class ScanFragment : Fragment() {
 
     companion object {
         private const val TAG = "ScanFragment"
-        private const val REQUEST_GALLERY = 100
     }
 }

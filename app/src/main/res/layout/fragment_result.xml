@@ -25,7 +25,7 @@
                 android:foregroundGravity="bottom"
                 app:fabSize="normal"
                 app:tint="@color/white"
-                app:srcCompat="@drawable/ic_back"
+                app:srcCompat="@drawable/ic_back2"
                 tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
             <ImageView

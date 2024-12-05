@@ -104,5 +104,15 @@ dependencies {
 
     // Google Services plugin
     implementation ("com.google.firebase:firebase-auth:21.0.1")
+
+    implementation("org.tensorflow:tensorflow-lite:2.6.0")
+    implementation("org.tensorflow:tensorflow-lite-support:0.4.0")
+
+    implementation("com.google.android.exoplayer:exoplayer-core:2.18.1")
+    implementation("com.google.android.exoplayer:exoplayer-ui:2.18.1")
+
+    implementation("com.github.yalantis:ucrop:2.2.8")
+
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 }
 

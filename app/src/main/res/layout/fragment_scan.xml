@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.scan.ScanFragment">
 
+    <!-- Floating Action Button (Back) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabBack"
         android:layout_width="wrap_content"
@@ -13,14 +14,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/green"
-        android:foregroundGravity="bottom"
         app:fabSize="normal"
         app:tint="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_back"
+        app:srcCompat="@drawable/ic_back2"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
+    <!-- Background Image -->
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
@@ -28,12 +29,14 @@
         android:scaleType="centerCrop"
         android:src="@drawable/bg" />
 
+    <!-- Blur Overlay -->
     <View
         android:id="@+id/blurOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/blur_white" />
 
+    <!-- Preview Image -->
     <ImageView
         android:id="@+id/previewImageView"
         android:layout_width="0dp"
@@ -48,6 +51,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_place_holder" />
 
+    <!-- Camera Button -->
     <Button
         android:id="@+id/cameraButton"
         android:layout_width="0dp"
@@ -62,6 +66,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread" />
 
+    <!-- Gallery Button -->
     <Button
         android:id="@+id/galleryButton"
         android:layout_width="0dp"
@@ -75,6 +80,7 @@
         app:layout_constraintStart_toEndOf="@+id/cameraButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Analyze Button -->
     <Button
         android:id="@+id/analyzeButton"
         android:layout_width="0dp"
@@ -88,7 +94,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
+    <!-- ProgressBar (Hidden by default) -->
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"

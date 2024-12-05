@@ -9,8 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.dicoding.asclepius.R
-import com.dicoding.asclepius.databinding.FragmentResultBinding
+import com.example.capstoneprojectmd.R
+import com.example.capstoneprojectmd.databinding.FragmentResultBinding
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 

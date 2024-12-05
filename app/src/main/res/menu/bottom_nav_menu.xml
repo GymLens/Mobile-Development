@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/navigation_beranda"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/homenofill"
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_history"
+        android:id="@+id/navigation_chatbot"
         android:icon="@drawable/historynofill"
-        android:title="@string/title_history" />
+        android:title="@string/title_chatbot" />
 
     <item
         android:id="@+id/navigation_scan"
@@ -19,12 +19,11 @@
     <item
         android:id="@+id/navigation_run"
         android:icon="@drawable/runnofill"
-        android:title="@string/title_chatbot" />
+        android:title="@string/title_run" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/profilenofill"
-        android:title="@string/title_profile">
-    </item>
+        android:title="@string/title_profile" />
 
 </menu>
