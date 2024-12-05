@@ -40,4 +40,8 @@
     <string name="password">Kata Sandi</string>
     <string name="email">Email</string>
     <string name="full_name">Nama</string>
+    <string name="camera">Kamera\n</string>
+    <string name="gallery">Galeri</string>
+    <string name="analyze">Analisis\n</string>
+    <string name="video_guide">Video Panduan Penggunaan Alat</string>
 </resources>
