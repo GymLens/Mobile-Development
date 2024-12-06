@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.beranda.BerandaFragment">
 
-    <!-- Background Image -->
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
@@ -14,14 +13,12 @@
         android:scaleType="centerCrop"
         android:src="@drawable/bg" />
 
-    <!-- Blurred Overlay -->
     <View
         android:id="@+id/blurOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/blur_white" />
 
-    <!-- Greeting Text -->
     <TextView
         android:id="@+id/userNameTextView"
         android:layout_width="wrap_content"
@@ -35,7 +32,6 @@
         android:layout_marginTop="32dp"
         android:layout_marginStart="16dp" />
 
-    <!-- Subtitle Text -->
     <TextView
         android:id="@+id/subtitleText"
         android:layout_width="wrap_content"
@@ -48,5 +44,28 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/articlesTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/artikel_title"
+        android:textSize="20sp"
+        android:textColor="@color/green"
+        android:fontFamily="@font/inter_semibold"
+        app:layout_constraintTop_toBottomOf="@+id/subtitleText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/articlesRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/articlesTitleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scrollbars="horizontal"
+        tools:listitem="@layout/list_item_article" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

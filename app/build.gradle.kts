@@ -92,6 +92,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation(libs.support.annotations)
+    implementation(libs.espresso.core)
+    implementation(libs.androidx.recyclerview)
 
     // Testing
     testImplementation("junit:junit:4.13.2")

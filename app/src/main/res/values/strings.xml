@@ -48,4 +48,6 @@
     <string name="title_result">Analisis</string>
     <string name="halo">Halo</string>
     <string name="subtitle_home">Periksa Ikhtisar Kesehatan Anda</string>
+    <string name="article_title">Judul Artikel\n</string>
+    <string name="artikel_title">Artikel</string>
 </resources>
