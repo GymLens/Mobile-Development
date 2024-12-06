@@ -51,7 +51,6 @@ class SignInViewModel : ViewModel() {
     fun loginWithGoogle(account: GoogleSignInAccount) {
         _loginStatus.value = LoginStatus.Loading
 
-        // Get Google credential and sign in with Firebase
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
@@ -68,8 +67,6 @@ class SignInViewModel : ViewModel() {
                 }
             }
     }
-
-    // Optionally, you can add a sign-out method if needed
     fun signOut() {
         auth.signOut()
         _loginStatus.value = LoginStatus.Error("User signed out.")
