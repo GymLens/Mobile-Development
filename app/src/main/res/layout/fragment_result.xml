@@ -10,23 +10,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:layout_marginBottom="56dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/green"
-                android:foregroundGravity="bottom"
-                app:fabSize="normal"
-                app:tint="@color/white"
-                app:srcCompat="@drawable/ic_back2"
-                tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
             <ImageView
                 android:id="@+id/resultImage"
@@ -105,8 +95,21 @@
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/green"
+        android:foregroundGravity="bottom"
+        app:fabSize="normal"
+        app:tint="@color/white"
+        app:srcCompat="@drawable/ic_back2"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp" />
 
 </RelativeLayout>

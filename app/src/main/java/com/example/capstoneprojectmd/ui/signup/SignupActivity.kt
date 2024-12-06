@@ -21,6 +21,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 
 class SignupActivity : AppCompatActivity() {
 
@@ -124,18 +125,45 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun navigateToMainActivity(user: FirebaseUser) {
+        val fullName = binding.fullNameInput.text.toString() // Get the full name entered by the user
+
+        saveFullNameToFirebase(fullName)
+
         AlertDialog.Builder(this).apply {
             setTitle("Welcome!")
             setMessage("Registration successful! User: ${user.email}")
             setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
-                startActivity(Intent(this@SignupActivity, SignInActivity::class.java))
+
+                // Kirim fullName ke MainActivity
+                val intent = Intent(this@SignupActivity, SignInActivity::class.java)
+                intent.putExtra("FULL_NAME", fullName)  // Kirim fullName
+                startActivity(intent)
                 finish()
             }
             create()
             show()
         }
     }
+
+    private fun saveFullNameToFirebase(fullName: String) {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        val profileUpdates = UserProfileChangeRequest.Builder()
+            .setDisplayName(fullName)  // Set the full name in the Firebase profile
+            .build()
+
+        user?.updateProfile(profileUpdates)
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("SignupActivity", "User profile updated with full name.")
+                    // You can also check that the profile update was successful before proceeding
+                } else {
+                    Log.d("SignupActivity", "Error updating profile: ${task.exception?.message}")
+                }
+            }
+    }
+
 
     private fun showDialog(title: String, message: String, isError: Boolean) {
         AlertDialog.Builder(this).apply {

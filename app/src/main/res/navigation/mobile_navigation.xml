@@ -17,11 +17,22 @@
         android:id="@+id/navigation_scan"
         android:name="com.example.capstoneprojectmd.ui.scan.ScanFragment"
         android:label="@string/title_scan"
-        tools:layout="@layout/fragment_scan" />
+        tools:layout="@layout/fragment_scan">
+        <!-- Action to navigate to ResultFragment -->
+        <action
+            android:id="@+id/action_navigation_scan_to_resultFragment"
+            app:destination="@id/navigation_result" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_result"
+        android:name="com.example.capstoneprojectmd.ui.scan.ResultFragment"
+        android:label="@string/title_result"
+        tools:layout="@layout/fragment_result" />
 
     <!-- Chatbot (Walk & Run) Fragment -->
     <fragment
-        android:id="@+id/navigation_run"
+        android:id="@+id/navigation_chatbot"
         android:name="com.example.capstoneprojectmd.ui.chatbot.ChatFragment"
         android:label="@string/title_chatbot"
         tools:layout="@layout/fragment_chat" />

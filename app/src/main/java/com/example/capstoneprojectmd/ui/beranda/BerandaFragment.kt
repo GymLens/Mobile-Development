@@ -12,13 +12,35 @@ class BerandaFragment : Fragment() {
 
     private var _binding: FragmentBerandaBinding? = null
     private val binding get() = _binding!!
+
+    private var userName: String? = null
+
+    companion object {
+        fun newInstance(userName: String): BerandaFragment {
+            val fragment = BerandaFragment()
+            val args = Bundle()
+            args.putString("USER_NAME", userName)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentBerandaBinding.inflate(inflater, container, false)
+        // Retrieve the fullName from the arguments passed via the Bundle
+        val fullName = arguments?.getString("USER_NAME") ?: "Guest"
+
+        // Display fullName in a TextView (or wherever you need it)
+        binding.userNameTextView.text = "Hi, $fullName!"
+
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

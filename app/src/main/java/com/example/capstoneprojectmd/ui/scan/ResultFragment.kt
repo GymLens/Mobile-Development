@@ -1,5 +1,6 @@
 package com.example.capstoneprojectmd.ui.scan
 
+import android.graphics.drawable.BitmapDrawable
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
@@ -22,10 +23,8 @@ class ResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentResultBinding.inflate(inflater, container, false)
 
-        // Retrieve arguments passed to the fragment
         val result = arguments?.getString("RESULT")
         val imageUri = arguments?.getString("IMAGE_URI")
         val videoUrl = arguments?.getString("VIDEO_URL")
@@ -59,9 +58,9 @@ class ResultFragment : Fragment() {
             initializeExoPlayer(it)
         }
 
-        // Back button click action (using Fragment navigation)
+        // Back button click action
         binding.fabBack.setOnClickListener {
-            requireActivity().onBackPressed() // Use onBackPressed to navigate back
+            requireActivity().supportFragmentManager.popBackStack() // Go back to the previous fragment
         }
 
         return binding.root
@@ -95,7 +94,7 @@ class ResultFragment : Fragment() {
 
             // Set the thumbnail bitmap as the background of the PlayerView
             binding.videoPlayerView.useArtwork = true
-            binding.videoPlayerView.defaultArtwork = android.graphics.drawable.BitmapDrawable(resources, bitmap)
+            binding.videoPlayerView.defaultArtwork = BitmapDrawable(resources, bitmap)
         } catch (e: Exception) {
             Log.e("ResultFragment", "Error retrieving video thumbnail: ${e.message}")
         }
@@ -110,13 +109,13 @@ class ResultFragment : Fragment() {
 
     companion object {
         fun newInstance(result: String, imageUri: String, videoUrl: String): ResultFragment {
-            val fragment = ResultFragment()
-            val args = Bundle()
-            args.putString("RESULT", result)
-            args.putString("IMAGE_URI", imageUri)
-            args.putString("VIDEO_URL", videoUrl)
-            fragment.arguments = args
-            return fragment
+            return ResultFragment().apply {
+                arguments = Bundle().apply {
+                    putString("RESULT", result)
+                    putString("IMAGE_URI", imageUri)
+                    putString("VIDEO_URL", videoUrl)
+                }
+            }
         }
     }
 }

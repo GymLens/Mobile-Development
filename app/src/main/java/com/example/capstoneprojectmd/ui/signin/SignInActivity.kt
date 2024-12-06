@@ -130,19 +130,27 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    // SignInActivity.kt
+
+    // Di dalam method navigateToChatActivity (atau bagian yang menavigasi ke MainActivity atau BerandaFragment)
     private fun navigateToChatActivity(user: FirebaseUser) {
         AlertDialog.Builder(this).apply {
             setTitle("Welcome!")
-            setMessage("Login successful! User: ${user.email}")
+            val displayName = user.displayName ?: "User" // Mendapatkan nama pengguna
+            setMessage("Login successful! Welcome $displayName!")
             setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
-                startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+                // Mengirim nama pengguna ke fragment atau activity lain
+                val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                intent.putExtra("USER_NAME", displayName) // Kirim nama pengguna ke MainActivity
+                startActivity(intent)
                 finish()
             }
             create()
             show()
         }
     }
+
 
     private fun showDialog(title: String, message: String, isError: Boolean) {
         AlertDialog.Builder(this).apply {

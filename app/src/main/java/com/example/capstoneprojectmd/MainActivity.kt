@@ -2,6 +2,7 @@ package com.example.capstoneprojectmd
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.capstoneprojectmd.databinding.ActivityMainBinding
+import com.example.capstoneprojectmd.ui.beranda.BerandaFragment
 import com.example.capstoneprojectmd.ui.signin.SignInActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -25,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-
         val navController = findNavController(R.id.nav_host_fragment)
 
         val appBarConfiguration = AppBarConfiguration(
@@ -38,15 +39,20 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        // If you don't want an ActionBar, you can skip this line
-        // setupActionBarWithNavController(navController, appBarConfiguration)
-
-        // Set up the Bottom Navigation with NavController
         navView.setupWithNavController(navController)
-    }
 
-    private fun navigateToLogin() {
-        startActivity(Intent(this, SignInActivity::class.java))
-        finish()  // Close MainActivity to prevent the user from returning to it
+        // Retrieve fullName from Firebase Authentication
+        val user = FirebaseAuth.getInstance().currentUser
+        val fullName = user?.displayName ?: "Guest"  // Get full name from Firebase profile, or "Guest" if null
+
+        // Ensure full name is updated correctly
+        if (fullName == "Guest") {
+            Log.d("MainActivity", "User's display name is still 'Guest' - Check profile update.")
+        }
+
+        // Pass fullName to BerandaFragment using a Bundle
+        val bundle = Bundle()
+        bundle.putString("USER_NAME", fullName)  // Pass fullName to BerandaFragment
+        navController.navigate(R.id.navigation_beranda, bundle)
     }
 }
