@@ -48,7 +48,7 @@ class SignInActivity : AppCompatActivity() {
                 is LoginStatus.Error -> {
                     binding.progressBar.visibility = View.GONE
                     binding.loginButton.isEnabled = true
-                    showDialog("Login Failed", status.message, true)
+                    showDialog("Login Gagal", status.message, true)
                 }
             }
         })
@@ -64,7 +64,7 @@ class SignInActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 signInViewModel.loginWithEmailPassword(email, password)
             } else {
-                showDialog("Invalid Input", "Please fill out all fields.", true)
+                showDialog("Input Tidak Valid", "Silakan lengkapi semua kolom.", true)
             }
         }
 
@@ -74,7 +74,7 @@ class SignInActivity : AppCompatActivity() {
         }
 
         binding.forgotPassword.setOnClickListener {
-            showDialog("Forgot Password", "Reset link has been sent to your email.", false)
+            showDialog("Lupa Kata Sandi", "Tautan reset telah dikirim ke email Anda.", false)
         }
     }
 
@@ -118,16 +118,16 @@ class SignInActivity : AppCompatActivity() {
                     signInViewModel.loginWithGoogle(account)
                 }
             } catch (e: ApiException) {
-                showDialog("Google Sign-In Failed", "Error: ${e.localizedMessage}", true)
+                showDialog("Google Sign-In Gagal", "Kesalahan: ${e.localizedMessage}", true)
             }
         }
     }
 
     private fun navigateToChatActivity(user: FirebaseUser) {
         AlertDialog.Builder(this).apply {
-            setTitle("Welcome!")
-            val displayName = user.displayName ?: "User"
-            setMessage("Login successful! Welcome $displayName!")
+            setTitle("Selamat!")
+            val displayName = user.displayName ?: "Pengguna"
+            setMessage("Login Berhasil. Halo $displayName!")
             setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
 

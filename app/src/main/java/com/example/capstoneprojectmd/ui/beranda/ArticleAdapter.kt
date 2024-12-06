@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.capstoneprojectmd.data.response.DataItem
 import com.example.capstoneprojectmd.databinding.ListItemArticleBinding
 
-class ArticleAdapter(private var articles: List<DataItem>) :
+class ArticleAdapter(private var articles: List<DataItem>, private val onItemClick: (DataItem) -> Unit) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
@@ -37,7 +37,7 @@ class ArticleAdapter(private var articles: List<DataItem>) :
                 .into(binding.imageView)
 
             binding.root.setOnClickListener {
-                // Handle click event
+                onItemClick(article)
             }
         }
     }

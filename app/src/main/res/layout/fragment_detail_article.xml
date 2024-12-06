@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg"
+    android:padding="16dp">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|top"
+        android:backgroundTint="@color/green"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_back2"
+        app:tint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/rounded_button_with_border"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_place_holder" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="495dp"
+        android:layout_gravity="bottom|center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/inter_semibold"
+            android:gravity="center"
+            android:text="@string/title_article"
+            android:textColor="@color/green"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/contentTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/inter_medium"
+            android:gravity="center"
+            android:text="@string/desc"
+            android:textColor="@color/green"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</FrameLayout>

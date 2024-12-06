@@ -9,7 +9,11 @@
         android:id="@+id/navigation_beranda"
         android:name="com.example.capstoneprojectmd.ui.beranda.BerandaFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_beranda" />
+        tools:layout="@layout/fragment_beranda">
+        <action
+            android:id="@+id/action_berandaFragment_to_detailArticleFragment"
+            app:destination="@id/navigation_detail_article" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_scan"
@@ -40,9 +44,19 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/navigation_walk_run"
+        android:id="@+id/navigation_run"
         android:name="com.example.capstoneprojectmd.ui.run.RunFragment"
         android:label="@string/title_run"
         tools:layout="@layout/fragment_run" />
+
+    <fragment
+        android:id="@+id/navigation_detail_article"
+        android:name="com.example.capstoneprojectmd.ui.beranda.DetailArticleFragment"
+        android:label="Detail Article"
+        tools:layout="@layout/fragment_detail_article">
+        <argument
+            android:name="article"
+            app:argType="com.example.capstoneprojectmd.data.response.DataItem" />
+    </fragment>
 
 </navigation>

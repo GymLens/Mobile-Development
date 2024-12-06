@@ -26,7 +26,7 @@
         android:text="@string/halo"
         android:textSize="24sp"
         android:textColor="@color/green"
-        android:fontFamily="@font/inter_semibold"
+        android:fontFamily="@font/inter_extrabold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="42dp"
@@ -34,29 +34,31 @@
 
     <TextView
         android:id="@+id/subtitleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/subtitle_home"
-        android:textSize="18sp"
-        android:textColor="@color/green"
-        android:fontFamily="@font/inter_medium"
-        app:layout_constraintTop_toBottomOf="@+id/userNameTextView"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inter_semibold"
+        android:text="@string/subtitle_home"
+        android:textColor="@color/green"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userNameTextView"
+        android:lineSpacingExtra="1dp"
+         android:lineSpacingMultiplier="1.2"/>
 
     <TextView
         android:id="@+id/articlesTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/artikel_title"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textColor="@color/green"
-        android:fontFamily="@font/inter_semibold"
+        android:fontFamily="@font/inter_extrabold"
         app:layout_constraintTop_toBottomOf="@+id/subtitleText"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp" />
+        android:layout_marginTop="60dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/articlesRecyclerView"
@@ -67,6 +69,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:scrollbars="horizontal"
-        tools:listitem="@layout/list_item_article" />
+        tools:listitem="@layout/list_item_article"
+        android:scrollbarThumbHorizontal="@drawable/green_scrollbar_thumb"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

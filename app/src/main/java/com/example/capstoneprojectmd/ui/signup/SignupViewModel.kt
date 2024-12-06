@@ -28,7 +28,7 @@ class SignupViewModel : ViewModel() {
                     val user = auth.currentUser
                     _signupStatus.value = SignupStatus.Success(user!!)
                 } else {
-                    _signupStatus.value = SignupStatus.Error(task.exception?.message ?: "Signup failed.")
+                    _signupStatus.value = SignupStatus.Error(task.exception?.message ?: "Pendaftaran gagal.")
                 }
             }
     }
@@ -42,7 +42,7 @@ class SignupViewModel : ViewModel() {
                     val user = auth.currentUser
                     _signupStatus.value = SignupStatus.Success(user!!)
                 } else {
-                    _signupStatus.value = SignupStatus.Error(task.exception?.message ?: "Google Signup failed.")
+                    _signupStatus.value = SignupStatus.Error(task.exception?.message ?: "Pendaftaran Google gagal.")
                 }
             }
     }

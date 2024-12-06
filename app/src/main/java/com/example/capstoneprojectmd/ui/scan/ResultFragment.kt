@@ -56,7 +56,7 @@ class ResultFragment : Fragment() {
         }
 
         binding.fabBack.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack() // Go back to the previous fragment
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         return binding.root

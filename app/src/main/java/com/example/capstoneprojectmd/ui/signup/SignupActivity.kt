@@ -50,7 +50,7 @@ class SignupActivity : AppCompatActivity() {
                 is SignupStatus.Error -> {
                     binding.progressBar.visibility = View.GONE
                     binding.signupButton.isEnabled = true
-                    showDialog("Signup Failed", status.message, true)
+                    showDialog("Pendaftaran Gagal", status.message, true)
                 }
             }
         })
@@ -67,7 +67,7 @@ class SignupActivity : AppCompatActivity() {
             if (fullName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                 signupViewModel.registerWithEmailPassword(fullName, email, password)
             } else {
-                showDialog("Invalid Input", "Please fill out all fields.", true)
+                showDialog("Input Tidak Valid", "Silakan lengkapi semua kolom.", true)
             }
         }
 
@@ -115,7 +115,7 @@ class SignupActivity : AppCompatActivity() {
                     signupViewModel.registerWithGoogle(account)
                 }
             } catch (e: ApiException) {
-                showDialog("Google Sign-Up Failed", "Error: ${e.localizedMessage}", true)
+                showDialog("Google Sign-Up Gagal", "Kesalahan: ${e.localizedMessage}", true)
             }
         }
     }
@@ -126,8 +126,8 @@ class SignupActivity : AppCompatActivity() {
         saveFullNameToFirebase(fullName)
 
         AlertDialog.Builder(this).apply {
-            setTitle("Welcome!")
-            setMessage("Registration successful! User: ${user.email}")
+            setTitle("Selamat!")
+            setMessage("Pendaftaran Berhasil! Email: ${user.email}")
             setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
 
@@ -151,9 +151,9 @@ class SignupActivity : AppCompatActivity() {
         user?.updateProfile(profileUpdates)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("SignupActivity", "User profile updated with full name.")
+                    Log.d("SignupActivity", "Profil pengguna diperbarui dengan nama lengkap.")
                 } else {
-                    Log.d("SignupActivity", "Error updating profile: ${task.exception?.message}")
+                    Log.d("SignupActivity", "Kesalahan saat memperbarui profil: ${task.exception?.message}")
                 }
             }
     }

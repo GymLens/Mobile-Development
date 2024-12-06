@@ -24,20 +24,20 @@ class SignInViewModel : ViewModel() {
                     if (user != null) {
                         _loginStatus.value = LoginStatus.Success(user)
                     } else {
-                        _loginStatus.value = LoginStatus.Error("Login failed, user not found.")
+                        _loginStatus.value = LoginStatus.Error("Login gagal, pengguna tidak ditemukan.")
                     }
                 } else {
                     val exception = task.exception
                     when (exception) {
                         // Handle specific Firebase exceptions
                         is com.google.firebase.auth.FirebaseAuthInvalidCredentialsException -> {
-                            _loginStatus.value = LoginStatus.Error("Invalid credentials.")
+                            _loginStatus.value = LoginStatus.Error("Kredensial tidak valid.")
                         }
                         is com.google.firebase.auth.FirebaseAuthUserCollisionException -> {
-                            _loginStatus.value = LoginStatus.Error("User already exists.")
+                            _loginStatus.value = LoginStatus.Error("Pengguna sudah ada.")
                         }
                         else -> {
-                            _loginStatus.value = LoginStatus.Error(exception?.message ?: "An error occurred.")
+                            _loginStatus.value = LoginStatus.Error(exception?.message ?: "Terjadi kesalahan.")
                         }
                     }
                 }
@@ -55,16 +55,17 @@ class SignInViewModel : ViewModel() {
                     if (user != null) {
                         _loginStatus.value = LoginStatus.Success(user)
                     } else {
-                        _loginStatus.value = LoginStatus.Error("Google Sign-In failed, user not found.")
+                        _loginStatus.value = LoginStatus.Error("Google Sign-In gagal, pengguna tidak ditemukan.")
                     }
                 } else {
                     val exception = task.exception
-                    _loginStatus.value = LoginStatus.Error(exception?.message ?: "An error occurred.")
+                    _loginStatus.value = LoginStatus.Error(exception?.message ?: "Terjadi kesalahan.")
                 }
             }
     }
+
     fun signOut() {
         auth.signOut()
-        _loginStatus.value = LoginStatus.Error("User signed out.")
+        _loginStatus.value = LoginStatus.Error("Pengguna telah keluar.")
     }
 }

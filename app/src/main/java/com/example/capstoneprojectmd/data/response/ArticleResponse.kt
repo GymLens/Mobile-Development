@@ -1,6 +1,7 @@
 package com.example.capstoneprojectmd.data.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ArticleResponse(
 
@@ -30,4 +31,4 @@ data class DataItem(
 
 	@field:SerializedName("url")
 	val url: String? = null
-)
+) : Serializable

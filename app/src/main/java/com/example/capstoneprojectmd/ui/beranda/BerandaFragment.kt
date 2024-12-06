@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.data.api.ArticleApiClient
 import com.example.capstoneprojectmd.databinding.FragmentBerandaBinding
 
@@ -14,8 +16,6 @@ class BerandaFragment : Fragment() {
 
     private var _binding: FragmentBerandaBinding? = null
     private val binding get() = _binding!!
-
-    private var userName: String? = null
 
     private lateinit var articleAdapter: ArticleAdapter
 
@@ -46,7 +46,15 @@ class BerandaFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        articleAdapter = ArticleAdapter(emptyList())
+        articleAdapter = ArticleAdapter(emptyList()) { article ->
+            // Manually create a Bundle to pass the article data
+            val bundle = Bundle()
+            bundle.putSerializable("article", article)
+
+            // Use NavController to navigate to the DetailArticleFragment
+            findNavController().navigate(R.id.navigation_detail_article, bundle)
+        }
+
         binding.articlesRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = articleAdapter

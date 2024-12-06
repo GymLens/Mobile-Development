@@ -72,10 +72,10 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.user.observe(viewLifecycleOwner) { user ->
             if (user != null) {
-                binding.userEmail.text = user.email ?: "Email not available"
-                binding.userName.text = user.displayName ?: "Name not available"
+                binding.userEmail.text = user.email ?: "Email tidak tersedia"
+                binding.userName.text = user.displayName ?: "Nama tidak tersedia"
             } else {
-                binding.userEmail.text = "No user logged in"
+                binding.userEmail.text = "Tidak ada pengguna yang login"
                 binding.userName.text = ""
             }
         }
@@ -103,17 +103,17 @@ class ProfileFragment : Fragment() {
         binding.logoutButton.setOnClickListener {
             logout()
         }
-}
+    }
 
     private fun navigateToChangePassword() {
-        Toast.makeText(requireContext(), "Change Password Clicked", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Ganti Kata Sandi Diklik", Toast.LENGTH_SHORT).show()
 
         val intent = Intent(requireContext(), ChangePasswordActivity::class.java)
         startActivity(intent)
     }
 
     private fun logout() {
-        Toast.makeText(requireContext(), "Logging out...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Keluar...", Toast.LENGTH_SHORT).show()
         val intent = Intent(requireContext(), SignInActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
@@ -131,7 +131,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showImagePickerOptions() {
-        val options = arrayOf("Take Photo", "Choose from Gallery", "Cancel")
+        val options = arrayOf("Ambil Foto", "Pilih dari Galeri", "Batal")
         val builder = android.app.AlertDialog.Builder(requireContext())
         builder.setItems(options) { dialog, which ->
             when (which) {
@@ -173,7 +173,7 @@ class ProfileFragment : Fragment() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 showImagePickerOptions()
             } else {
-                Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Izin kamera ditolak", Toast.LENGTH_SHORT).show()
             }
         }
     }

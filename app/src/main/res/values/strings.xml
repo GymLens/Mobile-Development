@@ -47,7 +47,7 @@
     <string name="title_run">Run Tracker</string>
     <string name="title_result">Analisis</string>
     <string name="halo">Halo</string>
-    <string name="subtitle_home">Periksa Ikhtisar Kesehatan Anda</string>
+    <string name="subtitle_home">Temukan Alat Gym dan Lacak Aktivitas Anda</string>
     <string name="article_title">Judul Artikel\n</string>
     <string name="artikel_title">Artikel</string>
     <string name="title_change_password">Ubah Password\n</string>
@@ -59,4 +59,9 @@
     <string name="user_email">Email Pengguna</string>
     <string name="ubah_password">Ubah Password</string>
     <string name="logout">Logout</string>
+    <string name="start_point">Start Point</string>
+    <string name="start_running">Mulai</string>
+    <string name="stop_running">Berhenti</string>
+    <string name="title_article">Judul Artikel</string>
+    <string name="desc">Deskripsi</string>
 </resources>
