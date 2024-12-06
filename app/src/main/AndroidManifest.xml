@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Add Internet Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -22,7 +21,6 @@
         android:theme="@style/Theme.CapstoneProjectMD"
         tools:targetApi="31">
 
-        <!-- Google Mobile Ads Configuration -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-6103117702645098~5700170429" />
@@ -30,8 +28,6 @@
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/baseline_notifications_24" />
 
-
-        <!-- Splash Screen Activity -->
         <activity
             android:name=".ui.splashscreen.SplashActivity"
             android:exported="true"
@@ -42,28 +38,24 @@
             </intent-filter>
         </activity>
 
-        <!-- Welcome Activity -->
         <activity
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.CapstoneProjectMD" />
 
-        <!-- SignUp Activity -->
         <activity
             android:name=".ui.signup.SignupActivity"
             android:exported="true"
             android:label="@string/title_sign_up"
             android:theme="@style/Theme.CapstoneProjectMD" />
 
-        <!-- Login Activity -->
         <activity
             android:name=".ui.signin.SignInActivity"
             android:exported="true"
             android:label="@string/title_login"
             android:theme="@style/Theme.CapstoneProjectMD" />
 
-        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -75,7 +67,6 @@
             android:theme="@style/Theme.CapstoneProjectMD"
             android:exported="true"/>
 
-        <!-- Change Password Activity -->
         <activity
             android:name=".ui.password.ChangePasswordActivity"
             android:exported="true"

@@ -29,7 +29,6 @@ class ResultFragment : Fragment() {
         val imageUri = arguments?.getString("IMAGE_URI")
         val videoUrl = arguments?.getString("VIDEO_URL")
 
-        // Handle result text and display it
         result?.let {
             val parts = it.split("\n")
             if (parts.size >= 2) {
@@ -45,20 +44,17 @@ class ResultFragment : Fragment() {
             }
         }
 
-        // Handle image URI and load the image with Glide
         imageUri?.let {
-            Log.d("ResultFragment", "Received Image URI: $it") // Log the received URI
+            Log.d("ResultFragment", "Received Image URI: $it")
 
             val uri = Uri.parse(it)
             Glide.with(requireContext()).load(uri).placeholder(R.drawable.ic_place_holder).into(binding.resultImage)
         }
 
-        // Show video using ExoPlayer
         videoUrl?.let {
             initializeExoPlayer(it)
         }
 
-        // Back button click action
         binding.fabBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack() // Go back to the previous fragment
         }
@@ -67,32 +63,26 @@ class ResultFragment : Fragment() {
     }
 
     private fun initializeExoPlayer(videoUrl: String) {
-        // Create an ExoPlayer instance
         exoPlayer = ExoPlayer.Builder(requireContext()).build()
 
-        // Prepare the video URL
         val mediaItem = MediaItem.fromUri(videoUrl)
         exoPlayer?.setMediaItem(mediaItem)
 
-        // Prepare the player asynchronously
         exoPlayer?.prepare()
 
-        // Bind the player to the PlayerView
         binding.videoPlayerView.player = exoPlayer
         binding.videoPlayerView.visibility = View.VISIBLE
 
-        // Set a thumbnail for the video player view
         setVideoThumbnail(videoUrl)
     }
 
     private fun setVideoThumbnail(videoUrl: String) {
         try {
             val retriever = MediaMetadataRetriever()
-            retriever.setDataSource(videoUrl, HashMap()) // Video URL
-            val bitmap = retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC) // First frame
+            retriever.setDataSource(videoUrl, HashMap())
+            val bitmap = retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
             retriever.release()
 
-            // Set the thumbnail bitmap as the background of the PlayerView
             binding.videoPlayerView.useArtwork = true
             binding.videoPlayerView.defaultArtwork = BitmapDrawable(resources, bitmap)
         } catch (e: Exception) {
@@ -102,7 +92,6 @@ class ResultFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        // Release the ExoPlayer when the fragment is paused to free resources
         exoPlayer?.release()
         exoPlayer = null
     }

@@ -7,7 +7,7 @@ import java.io.IOException
 object ApiClient {
     private const val API_URL =
         "https://us-central1-aiplatform.googleapis.com/v1/projects/241705916714/locations/us-central1/endpoints/7520317585871601664:generateContent"
-    private const val ACCESS_TOKEN = "YOUR_ACCESS_TOKEN" // Ganti dengan token akses Anda
+    private const val ACCESS_TOKEN = "YOUR_ACCESS_TOKEN"
 
     private val client = OkHttpClient()
 
@@ -17,7 +17,6 @@ object ApiClient {
         onError: (String) -> Unit
     ) {
         try {
-            // Buat payload JSON
             val jsonBody = JSONObject().apply {
                 put("instances", JSONArray().put(JSONObject().put("content", inputText)))
                 put(
@@ -32,7 +31,6 @@ object ApiClient {
             val mediaType = "application/json; charset=utf-8".toMediaTypeOrNull()
             val body = RequestBody.create(mediaType, jsonBody.toString())
 
-            // Buat request
             val request = Request.Builder()
                 .url(API_URL)
                 .addHeader("Authorization", "Bearer $ACCESS_TOKEN")
@@ -40,7 +38,6 @@ object ApiClient {
                 .post(body)
                 .build()
 
-            // Eksekusi API call
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     onError("Gagal menghubungi server: ${e.message}")

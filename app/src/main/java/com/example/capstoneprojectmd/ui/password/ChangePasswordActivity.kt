@@ -37,8 +37,7 @@ class ChangePasswordActivity : Activity() {
     }
 
     private fun updatePassword(newPassword: String) {
-        // Dummy logic: replace with Firebase/Auth API
         Toast.makeText(this, "Password changed successfully", Toast.LENGTH_SHORT).show()
-        finish() // Close the activity after the update
+        finish()
     }
 }

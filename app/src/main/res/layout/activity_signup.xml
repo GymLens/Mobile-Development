@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/autentifikasi">
 
-    <!-- Title Text -->
     <TextView
         android:id="@+id/titleText"
         android:layout_width="0dp"
@@ -24,7 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Subtitle Text -->
     <TextView
         android:id="@+id/subtitleText"
         android:layout_width="0dp"
@@ -40,7 +38,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleText" />
 
-    <!-- CardView for the Form -->
     <androidx.cardview.widget.CardView
         android:id="@+id/container"
         android:layout_width="0dp"
@@ -59,7 +56,6 @@
             android:layout_height="650dp"
             android:padding="16dp">
 
-            <!-- Tabs for Register/Login -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="0dp"
@@ -102,7 +98,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Full Name Label -->
             <TextView
                 android:id="@+id/fullNameLabel"
                 android:layout_width="90dp"
@@ -116,7 +111,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tabLayout" />
 
-            <!-- Full Name Input Field -->
             <EditText
                 android:id="@+id/fullNameInput"
                 android:layout_width="0dp"
@@ -133,7 +127,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fullNameLabel" />
 
-            <!-- Email Label -->
             <TextView
                 android:id="@+id/emailLabel"
                 android:layout_width="90dp"
@@ -147,7 +140,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fullNameInput" />
 
-            <!-- Email Input Field -->
             <EditText
                 android:id="@+id/emailInput"
                 android:layout_width="0dp"
@@ -163,7 +155,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emailLabel" />
 
-            <!-- Password Label -->
             <TextView
                 android:id="@+id/passwordLabel"
                 android:layout_width="100dp"
@@ -177,7 +168,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/emailInput" />
 
-            <!-- Password Input Field -->
             <EditText
                 android:id="@+id/passwordInput"
                 android:layout_width="0dp"
@@ -194,12 +184,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/passwordLabel" />
 
-            <!-- Password Visibility Toggle -->
             <ImageView
                 android:id="@+id/passwordVisibilityToggle"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="40dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -208,7 +197,6 @@
                 app:layout_constraintTop_toTopOf="@id/passwordInput"
                 app:tint="@color/green" />
 
-            <!-- Sign Up Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/signupButton"
                 android:layout_width="0dp"

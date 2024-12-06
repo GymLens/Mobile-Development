@@ -23,7 +23,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.FragmentScanBinding
 import com.example.capstoneprojectmd.helper.ImageClassifierHelper
-import com.google.android.exoplayer2.offline.DownloadService.start
 import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -150,32 +149,27 @@ class ScanFragment : Fragment() {
     }
 
     private fun analyzeImage(uri: Uri) {
-        // Show the progress bar immediately on the main thread
         showProgressBar(true)
         Log.d(TAG, "Starting image analysis...")
 
         lifecycleScope.launch {
             try {
-                // Perform analysis in a background thread
                 val result = withContext(Dispatchers.IO) {
-                    imageClassifier.classifyStaticImage(uri) // Blocking call for image classification
+                    imageClassifier.classifyStaticImage(uri)
                 }
 
                 val predictedLabel = result.split(",")[0].substringAfter("Predicted Class: ").trim()
                 val videoUrl = imageClassifier.getVideoUrl(predictedLabel)
 
-                // Once the analysis is done, hide the progress bar
                 if (videoUrl != null) {
                     Log.d(TAG, "Analysis successful. Predicted Label: $predictedLabel")
 
-                    // Create a bundle with the analysis results
                     val bundle = Bundle().apply {
                         putString("RESULT", result)
                         putString("IMAGE_URI", uri.toString())
                         putString("VIDEO_URL", videoUrl)
                     }
 
-                    // Use NavController to navigate to ResultFragment with the bundle
                     findNavController().navigate(R.id.action_navigation_scan_to_resultFragment, bundle)
 
                 } else {
@@ -186,7 +180,6 @@ class ScanFragment : Fragment() {
                 Log.e(TAG, "Error during image analysis: ${e.message}")
                 showToast("Error during analysis.")
             } finally {
-                // Ensure the progress bar is hidden after analysis is completed
                 showProgressBar(false)
                 Log.d(TAG, "Image analysis completed.")
             }
@@ -194,7 +187,6 @@ class ScanFragment : Fragment() {
     }
 
     private fun showProgressBar(isVisible: Boolean) {
-        // Ensure this is called on the main thread for UI updates
         binding.progressBar.post {
             binding.progressBar.visibility = if (isVisible) {
                 Log.d(TAG, "Setting ProgressBar visibility to VISIBLE")

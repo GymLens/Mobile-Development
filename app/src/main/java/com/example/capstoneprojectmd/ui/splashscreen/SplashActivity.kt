@@ -7,10 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.capstoneprojectmd.R
-
-
-import com.example.capstoneprojectmd.ui.welcome.WelcomeActivity
-
+import com.example.capstoneprojectmd.ui.signin.SignInActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -21,7 +18,7 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this@SplashActivity, WelcomeActivity::class.java)
+            val intent = Intent(this@SplashActivity, SignInActivity::class.java)
             startActivity(intent)
             finish()
         }, 1000)

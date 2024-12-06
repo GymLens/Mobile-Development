@@ -65,7 +65,7 @@
                 android:id="@+id/videoGuide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="18dp"
                 android:text="@string/video_guide"
                 android:textColor="@color/green"
                 android:textSize="16sp"
@@ -78,6 +78,7 @@
                 android:layout_height="230dp"
                 app:strokeColor="@color/green"
                 app:strokeWidth="5dp"
+                android:layout_marginTop="4dp"
                 app:cardCornerRadius="25dp">
 
                 <FrameLayout

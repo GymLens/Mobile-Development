@@ -1,17 +1,13 @@
 package com.example.capstoneprojectmd
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.capstoneprojectmd.databinding.ActivityMainBinding
-import com.example.capstoneprojectmd.ui.beranda.BerandaFragment
-import com.example.capstoneprojectmd.ui.signin.SignInActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -41,18 +37,15 @@ class MainActivity : AppCompatActivity() {
 
         navView.setupWithNavController(navController)
 
-        // Retrieve fullName from Firebase Authentication
         val user = FirebaseAuth.getInstance().currentUser
-        val fullName = user?.displayName ?: "Guest"  // Get full name from Firebase profile, or "Guest" if null
+        val fullName = user?.displayName ?: "Guest"
 
-        // Ensure full name is updated correctly
         if (fullName == "Guest") {
             Log.d("MainActivity", "User's display name is still 'Guest' - Check profile update.")
         }
 
-        // Pass fullName to BerandaFragment using a Bundle
         val bundle = Bundle()
-        bundle.putString("USER_NAME", fullName)  // Pass fullName to BerandaFragment
+        bundle.putString("USER_NAME", fullName)
         navController.navigate(R.id.navigation_beranda, bundle)
     }
 }

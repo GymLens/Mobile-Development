@@ -17,11 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.capstoneprojectmd.databinding.FragmentProfileBinding
 import android.content.pm.PackageManager
-import androidx.navigation.fragment.findNavController
-import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.ui.password.ChangePasswordActivity
-import com.example.capstoneprojectmd.ui.profile.ProfileViewModel
-import com.example.capstoneprojectmd.ui.welcome.WelcomeActivity
+import com.example.capstoneprojectmd.ui.signin.SignInActivity
 import java.io.File
 import java.io.FileOutputStream
 
@@ -32,7 +29,6 @@ class ProfileFragment : Fragment() {
 
     private val profileViewModel: ProfileViewModel by viewModels()
 
-    // Launchers for camera and gallery
     private val takePictureLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -40,7 +36,7 @@ class ProfileFragment : Fragment() {
                 val uri = data?.data
                 uri?.let {
                     binding.profilePicture.setImageURI(it)
-                    profileViewModel.setProfileImageUri(it) // Save URI to ViewModel
+                    profileViewModel.setProfileImageUri(it)
                 }
             }
         }
@@ -52,7 +48,7 @@ class ProfileFragment : Fragment() {
                 photo?.let {
                     val uri = saveImageToStorage(it)
                     binding.profilePicture.setImageBitmap(it)
-                    profileViewModel.setProfileImageUri(uri) // Save URI to ViewModel
+                    profileViewModel.setProfileImageUri(uri)
                 }
             }
         }
@@ -68,14 +64,12 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Observe changes in profile image URI from ViewModel
         profileViewModel.profileImageUri.observe(viewLifecycleOwner) { uri ->
             uri?.let {
                 binding.profilePicture.setImageURI(it)
             }
         }
 
-        // Observe user data from ViewModel
         profileViewModel.user.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 binding.userEmail.text = user.email ?: "Email not available"
@@ -86,7 +80,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        // Camera icon click listener
         binding.cameraIcon.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     requireContext(),
@@ -95,7 +88,6 @@ class ProfileFragment : Fragment() {
             ) {
                 showImagePickerOptions()
             } else {
-                // Request camera permission if not granted
                 ActivityCompat.requestPermissions(
                     requireActivity(),
                     arrayOf(android.Manifest.permission.CAMERA),
@@ -104,7 +96,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        // Change password button
         binding.changePasswordButton.setOnClickListener {
             navigateToChangePassword()
         }
@@ -115,17 +106,15 @@ class ProfileFragment : Fragment() {
 }
 
     private fun navigateToChangePassword() {
-        // Show a Toast message when the button is clicked
         Toast.makeText(requireContext(), "Change Password Clicked", Toast.LENGTH_SHORT).show()
 
-        // Start the ChangePasswordActivity
         val intent = Intent(requireContext(), ChangePasswordActivity::class.java)
         startActivity(intent)
     }
 
     private fun logout() {
         Toast.makeText(requireContext(), "Logging out...", Toast.LENGTH_SHORT).show()
-        val intent = Intent(requireContext(), WelcomeActivity::class.java)
+        val intent = Intent(requireContext(), SignInActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
 
@@ -146,9 +135,9 @@ class ProfileFragment : Fragment() {
         val builder = android.app.AlertDialog.Builder(requireContext())
         builder.setItems(options) { dialog, which ->
             when (which) {
-                0 -> openCamera() // Open camera to take a photo
-                1 -> openGallery() // Open gallery to choose a photo
-                2 -> dialog.dismiss() // Cancel
+                0 -> openCamera()
+                1 -> openGallery()
+                2 -> dialog.dismiss()
             }
         }
         builder.show()

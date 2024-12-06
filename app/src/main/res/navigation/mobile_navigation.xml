@@ -5,20 +5,17 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_beranda">
 
-    <!-- Beranda Fragment -->
     <fragment
         android:id="@+id/navigation_beranda"
         android:name="com.example.capstoneprojectmd.ui.beranda.BerandaFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_beranda" />
 
-    <!-- Scan Fragment -->
     <fragment
         android:id="@+id/navigation_scan"
         android:name="com.example.capstoneprojectmd.ui.scan.ScanFragment"
         android:label="@string/title_scan"
         tools:layout="@layout/fragment_scan">
-        <!-- Action to navigate to ResultFragment -->
         <action
             android:id="@+id/action_navigation_scan_to_resultFragment"
             app:destination="@id/navigation_result" />
@@ -30,21 +27,18 @@
         android:label="@string/title_result"
         tools:layout="@layout/fragment_result" />
 
-    <!-- Chatbot (Walk & Run) Fragment -->
     <fragment
         android:id="@+id/navigation_chatbot"
         android:name="com.example.capstoneprojectmd.ui.chatbot.ChatFragment"
         android:label="@string/title_chatbot"
         tools:layout="@layout/fragment_chat" />
 
-    <!-- Profile Fragment -->
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.capstoneprojectmd.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 
-    <!-- Walk & Run Fragment -->
     <fragment
         android:id="@+id/navigation_walk_run"
         android:name="com.example.capstoneprojectmd.ui.run.RunFragment"

@@ -34,7 +34,7 @@ object ArticleApiClient {
                         val articleResponse = gson.fromJson(responseBody, ArticleResponse::class.java)
                         val articles = articleResponse.data?.filterNotNull() ?: emptyList()
 
-                        println("Fetched Articles: $articles") // Log data untuk debugging
+                        println("Fetched Articles: $articles")
                         onSuccess(articles)
                     } catch (e: Exception) {
                         onError("Error parsing response: ${e.message}")

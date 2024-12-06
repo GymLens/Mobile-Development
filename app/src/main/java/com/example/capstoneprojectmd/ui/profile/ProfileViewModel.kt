@@ -17,7 +17,6 @@ class ProfileViewModel : ViewModel() {
     private val firebaseStorage = FirebaseStorage.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
 
-    // LiveData untuk menyimpan informasi pengguna
     private val _user = MutableLiveData<FirebaseUser?>()
     val user: LiveData<FirebaseUser?> = _user
 
@@ -28,7 +27,6 @@ class ProfileViewModel : ViewModel() {
     val profileImageUri: LiveData<Uri?> = _profileImageUri
 
     init {
-        // Ambil data pengguna saat ini
         fetchCurrentUser()
     }
 
@@ -46,12 +44,10 @@ class ProfileViewModel : ViewModel() {
         _user.value = null
     }
 
-    // Fungsi untuk menyimpan URI gambar profil sementara
     fun setProfileImageUri(uri: Uri) {
         _profileImageUri.value = uri
     }
 
-    // Fungsi untuk menyimpan foto profil ke Firebase Storage
     fun uploadProfilePicture(uri: Uri, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         val currentUser = firebaseAuth.currentUser
         if (currentUser != null) {
@@ -60,7 +56,6 @@ class ProfileViewModel : ViewModel() {
             storageRef.putFile(uri)
                 .addOnSuccessListener {
                     storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                        // Simpan URL gambar ke Firestore
                         updateProfilePicture(downloadUri.toString(), onSuccess)
                     }
                 }
@@ -72,7 +67,6 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    // Fungsi untuk memperbarui gambar profil pengguna di Firestore
     private fun updateProfilePicture(imageUrl: String, onSuccess: () -> Unit) {
         val currentUser = firebaseAuth.currentUser
         if (currentUser != null) {

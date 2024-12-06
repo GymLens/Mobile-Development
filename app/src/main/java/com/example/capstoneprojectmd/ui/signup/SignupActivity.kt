@@ -27,7 +27,7 @@ class SignupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignupBinding
     private val signupViewModel: SignupViewModel by viewModels()
-    private val RC_SIGN_IN = 9001 // Request code for Google Sign-In
+    private val RC_SIGN_IN = 9001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,6 @@ class SignupActivity : AppCompatActivity() {
 
         setupActions()
 
-        // Observing ViewModel
         signupViewModel.signupStatus.observe(this, Observer { status ->
             when (status) {
                 is SignupStatus.Loading -> {
@@ -56,8 +55,8 @@ class SignupActivity : AppCompatActivity() {
             }
         })
 
-        // Set up password visibility toggle
         setupPasswordVisibilityToggle()
+        setupTabNavigation()
     }
 
     private fun setupActions() {
@@ -73,7 +72,19 @@ class SignupActivity : AppCompatActivity() {
         }
 
         binding.loginTab.setOnClickListener {
-            finish() // Close SignupActivity to return to the SignInActivity
+            finish()
+        }
+    }
+
+    private fun setupTabNavigation() {
+        binding.registerTab.setOnClickListener {
+            startActivity(Intent(this, SignupActivity::class.java))
+            finish()
+        }
+
+        binding.loginTab.setOnClickListener {
+            startActivity(Intent(this, SignInActivity::class.java))
+            finish()
         }
     }
 
@@ -82,31 +93,16 @@ class SignupActivity : AppCompatActivity() {
         val passwordVisibilityToggle = binding.passwordVisibilityToggle
 
         passwordVisibilityToggle.setOnClickListener {
-            // Mengecek apakah password sedang disembunyikan atau tidak
             if (passwordInput.transformationMethod is PasswordTransformationMethod) {
-                // Ubah ke teks biasa (show password)
                 passwordInput.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility_off) // Ganti ikon ke "Hide"
+                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility_off)
             } else {
-                // Ubah ke password (hide password)
                 passwordInput.transformationMethod = PasswordTransformationMethod.getInstance()
-                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility) // Ganti ikon ke "Show"
+                passwordVisibilityToggle.setImageResource(R.drawable.ic_visibility)
             }
 
-            // Update kursor agar tetap berada di akhir teks
             passwordInput.setSelection(passwordInput.text.length)
         }
-    }
-
-    private fun signUpWithGoogle() {
-        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        val googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -125,7 +121,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun navigateToMainActivity(user: FirebaseUser) {
-        val fullName = binding.fullNameInput.text.toString() // Get the full name entered by the user
+        val fullName = binding.fullNameInput.text.toString()
 
         saveFullNameToFirebase(fullName)
 
@@ -135,9 +131,8 @@ class SignupActivity : AppCompatActivity() {
             setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
 
-                // Kirim fullName ke MainActivity
                 val intent = Intent(this@SignupActivity, SignInActivity::class.java)
-                intent.putExtra("FULL_NAME", fullName)  // Kirim fullName
+                intent.putExtra("FULL_NAME", fullName)
                 startActivity(intent)
                 finish()
             }
@@ -150,14 +145,13 @@ class SignupActivity : AppCompatActivity() {
         val user = FirebaseAuth.getInstance().currentUser
 
         val profileUpdates = UserProfileChangeRequest.Builder()
-            .setDisplayName(fullName)  // Set the full name in the Firebase profile
+            .setDisplayName(fullName)
             .build()
 
         user?.updateProfile(profileUpdates)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("SignupActivity", "User profile updated with full name.")
-                    // You can also check that the profile update was successful before proceeding
                 } else {
                     Log.d("SignupActivity", "Error updating profile: ${task.exception?.message}")
                 }

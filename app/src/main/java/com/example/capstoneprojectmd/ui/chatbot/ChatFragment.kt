@@ -30,7 +30,6 @@ class ChatFragment : Fragment() {
     }
 
     private fun setupChat() {
-        // Ganti MutableList<String> menjadi MutableList<Message>
         val chatMessages = mutableListOf<Message>()
         val chatAdapter = ChatAdapter(chatMessages)
 
@@ -42,7 +41,6 @@ class ChatFragment : Fragment() {
         binding.sendButton.setOnClickListener {
             val userMessage = binding.messageInput.text.toString().trim()
             if (userMessage.isNotEmpty()) {
-                // Tambahkan pesan user ke dalam daftar chatMessages
                 val userMessageObj = Message(content = userMessage, sender = "user")
                 chatMessages.add(userMessageObj)
                 chatAdapter.notifyItemInserted(chatMessages.size - 1)
@@ -52,7 +50,6 @@ class ChatFragment : Fragment() {
                     inputText = userMessage,
                     onSuccess = { result ->
                         requireActivity().runOnUiThread {
-                            // Tambahkan pesan bot ke dalam daftar chatMessages
                             val botMessageObj = Message(content = result, sender = "bot")
                             chatMessages.add(botMessageObj)
                             chatAdapter.notifyItemInserted(chatMessages.size - 1)

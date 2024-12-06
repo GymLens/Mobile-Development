@@ -1,13 +1,11 @@
 package com.example.capstoneprojectmd.ui.signin
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.capstoneprojectmd.model.LoginStatus
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class SignInViewModel : ViewModel() {
@@ -17,7 +15,6 @@ class SignInViewModel : ViewModel() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    // Email/Password login
     fun loginWithEmailPassword(email: String, password: String) {
         _loginStatus.value = LoginStatus.Loading
         auth.signInWithEmailAndPassword(email, password)
@@ -47,7 +44,6 @@ class SignInViewModel : ViewModel() {
             }
     }
 
-    // Google Sign-In
     fun loginWithGoogle(account: GoogleSignInAccount) {
         _loginStatus.value = LoginStatus.Loading
 

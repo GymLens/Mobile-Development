@@ -11,7 +11,6 @@ import com.example.capstoneprojectmd.model.Message
 class ChatAdapter(private val messageList: MutableList<Message>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    // Menentukan view type berdasarkan pengirim pesan
     override fun getItemViewType(position: Int): Int {
         return if (messageList[position].sender == "user") {
             USER_MESSAGE_TYPE
@@ -20,7 +19,6 @@ class ChatAdapter(private val messageList: MutableList<Message>) :
         }
     }
 
-    // Menentukan layout yang digunakan berdasarkan view type
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             USER_MESSAGE_TYPE -> {
@@ -37,7 +35,6 @@ class ChatAdapter(private val messageList: MutableList<Message>) :
         }
     }
 
-    // Bind data ke tampilan pesan
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = messageList[position]
         when (holder) {
@@ -50,13 +47,11 @@ class ChatAdapter(private val messageList: MutableList<Message>) :
         return messageList.size
     }
 
-    // Menambahkan pesan baru ke daftar
     fun addMessage(message: Message) {
         messageList.add(message)
         notifyItemInserted(messageList.size - 1)
     }
 
-    // ViewHolder untuk pesan User
     class UserMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageText: TextView = itemView.findViewById(R.id.messageText)
 
@@ -65,7 +60,6 @@ class ChatAdapter(private val messageList: MutableList<Message>) :
         }
     }
 
-    // ViewHolder untuk pesan Bot
     class BotMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageText: TextView = itemView.findViewById(R.id.messageText)
 
