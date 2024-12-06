@@ -76,7 +76,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Ketik pesan Anda..."
-            android:background="@drawable/bg_message_input"
             android:padding="12dp"
             android:textColor="@color/black"
             android:textColorHint="@color/gray"/>
@@ -86,7 +85,6 @@
             android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/send"
             android:contentDescription="Send Message"
             android:background="@null"
             android:padding="8dp"/>

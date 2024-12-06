@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".ProfileActivity">
+    tools:context=".ui.profile.ProfileFragment"
+    android:background="@drawable/bg"
+    tools:ignore="ExtraText">
 
     <!-- Toolbar -->
     <RelativeLayout
@@ -53,61 +54,42 @@
             android:layout_height="96dp">
 
             <ImageView
+                android:id="@+id/profilePicture"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:layout_gravity="center"
-
                 android:scaleType="centerCrop"
+                android:background="@drawable/circular_shape"
                 android:contentDescription="Profile Picture" />
 
+            <!-- Camera icon to take picture -->
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:id="@+id/cameraIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="4dp"
-                android:contentDescription="Edit Profile Picture"
-               />
+                android:src="@drawable/ic_camera"
+                android:contentDescription="Take Photo" />
         </FrameLayout>
 
-        <!-- Email and Phone -->
+        <!-- User Info -->
         <TextView
+            android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="azzahrahputri381@gmail.com"
-            android:textSize="16sp"
-            android:textColor="@color/black" />
+            android:text="Nama Pengguna"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/userEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+6285267591258"
-            android:textSize="14sp"
+            android:text="Email Pengguna"
+            android:textSize="16sp"
             android:textColor="@color/gray" />
-    </LinearLayout>
-
-    <!-- Followers and Following -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="16dp">
-
-        <!-- Followers -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginEnd="32dp"
-            android:gravity="center"/>
-
-        <!-- Following -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"/>
     </LinearLayout>
 
     <!-- Spacer to create space before button -->
@@ -117,6 +99,7 @@
 
     <!-- Change Password Button -->
     <Button
+        android:id="@+id/changePasswordButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_button_with_border"
@@ -124,6 +107,19 @@
         android:gravity="center_vertical"
         android:paddingVertical="16dp"
         android:text="Ubah Password"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_button_with_border"
+        android:drawablePadding="16dp"
+        android:gravity="center_vertical"
+        android:paddingVertical="16dp"
+        android:text="Logout"
         android:textColor="#000000"
         android:textSize="16sp" />
 </LinearLayout>

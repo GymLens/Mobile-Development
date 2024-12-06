@@ -45,4 +45,5 @@
     <string name="analyze">Analisis\n</string>
     <string name="video_guide">Video Panduan Penggunaan Alat</string>
     <string name="title_run">Run Tracker</string>
+    <string name="title_change_password">change_password</string>
 </resources>
