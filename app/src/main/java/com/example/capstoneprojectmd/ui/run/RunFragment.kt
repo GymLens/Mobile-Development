@@ -131,9 +131,9 @@ class RunFragment : Fragment(R.layout.fragment_run), OnMapReadyCallback {
     }
 
     private fun createLocationRequest() {
-        locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, TimeUnit.SECONDS.toMillis(1))
+        locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, TimeUnit.SECONDS.toMillis(2))
             .apply {
-                setMaxUpdateDelayMillis(TimeUnit.SECONDS.toMillis(1))
+                setMaxUpdateDelayMillis(TimeUnit.SECONDS.toMillis(2))
             }.build()
 
         val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
@@ -157,17 +157,19 @@ class RunFragment : Fragment(R.layout.fragment_run), OnMapReadyCallback {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 for (location in locationResult.locations) {
-                    val lastLatLng = LatLng(location.latitude, location.longitude)
-                    allLatLng.add(lastLatLng)
-                    mMap.addPolyline(
-                        PolylineOptions()
-                            .color(Color.CYAN)
-                            .width(10f)
-                            .addAll(allLatLng)
-                    )
-                    boundsBuilder.include(lastLatLng)
-                    val bounds: LatLngBounds = boundsBuilder.build()
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
+                    if (location.accuracy <= 20) {
+                        val lastLatLng = LatLng(location.latitude, location.longitude)
+                        allLatLng.add(lastLatLng)
+                        mMap.addPolyline(
+                            PolylineOptions()
+                                .color(Color.CYAN)
+                                .width(10f)
+                                .addAll(allLatLng)
+                        )
+                        boundsBuilder.include(lastLatLng)
+                        val bounds: LatLngBounds = boundsBuilder.build()
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
+                    }
                 }
             }
         }

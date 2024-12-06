@@ -64,4 +64,6 @@
     <string name="stop_running">Berhenti</string>
     <string name="title_article">Judul Artikel</string>
     <string name="desc">Deskripsi</string>
+    <string name="password_new">Kata Sandi Baru</string>
+    <string name="password_old">Kata Sandi Lama</string>
 </resources>
