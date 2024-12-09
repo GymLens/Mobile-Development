@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import android.util.Log
 
 class ProfileViewModel : ViewModel() {
 
@@ -30,12 +30,35 @@ class ProfileViewModel : ViewModel() {
         fetchCurrentUser()
     }
 
-    private fun fetchCurrentUser() {
+    fun fetchCurrentUser() {
         val currentUser = firebaseAuth.currentUser
         if (currentUser != null) {
             _user.value = currentUser
+            fetchProfileImage()
         } else {
             _errorMessage.value = "User not logged in"
+        }
+    }
+
+    fun fetchProfileImage() {
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser != null) {
+            firestore.collection("users").document(currentUser.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    val profilePicture = document.getString("profilePicture")
+                    if (!profilePicture.isNullOrEmpty()) {
+                        _profileImageUri.value = Uri.parse(profilePicture)
+                        Log.d("ProfileViewModel", "Profile image URI fetched: $profilePicture")
+                    } else {
+                        _profileImageUri.value = null
+                        Log.d("ProfileViewModel", "No profile image found")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    _errorMessage.value = "Failed to fetch profile image: ${exception.message}"
+                    Log.e("ProfileViewModel", "Error fetching profile image", exception)
+                }
         }
     }
 
@@ -46,37 +69,42 @@ class ProfileViewModel : ViewModel() {
 
     fun setProfileImageUri(uri: Uri) {
         _profileImageUri.value = uri
+        uploadProfilePicture(uri)
     }
 
-    fun uploadProfilePicture(uri: Uri, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+    private fun uploadProfilePicture(uri: Uri) {
         val currentUser = firebaseAuth.currentUser
         if (currentUser != null) {
-            val storageRef: StorageReference = firebaseStorage.reference.child("profile_pictures/${currentUser.uid}.jpg")
+            val storageRef = firebaseStorage.reference.child("profile_pictures/${currentUser.uid}.jpg")
 
             storageRef.putFile(uri)
                 .addOnSuccessListener {
                     storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                        updateProfilePicture(downloadUri.toString(), onSuccess)
+                        updateProfilePicture(downloadUri.toString())
+                    }.addOnFailureListener { exception ->
+                        _errorMessage.value = "Failed to get download URL: ${exception.message}"
+                        Log.e("ProfileViewModel", "Error getting download URL", exception)
                     }
                 }
                 .addOnFailureListener { exception ->
-                    onFailure("Failed to upload picture: ${exception.message}")
+                    _errorMessage.value = "Failed to upload picture: ${exception.message}"
+                    Log.e("ProfileViewModel", "Error uploading picture", exception)
                 }
-        } else {
-            onFailure("User not logged in")
         }
     }
 
-    private fun updateProfilePicture(imageUrl: String, onSuccess: () -> Unit) {
+    private fun updateProfilePicture(imageUrl: String) {
         val currentUser = firebaseAuth.currentUser
         if (currentUser != null) {
             val userRef = firestore.collection("users").document(currentUser.uid)
             userRef.update("profilePicture", imageUrl, "lastUpdated", FieldValue.serverTimestamp())
                 .addOnSuccessListener {
-                    onSuccess()
+                    _profileImageUri.postValue(Uri.parse(imageUrl))
+                    Log.d("ProfileViewModel", "Profile picture updated successfully: $imageUrl")
                 }
                 .addOnFailureListener { exception ->
                     _errorMessage.value = "Failed to update profile picture: ${exception.message}"
+                    Log.e("ProfileViewModel", "Error updating profile picture", exception)
                 }
         }
     }

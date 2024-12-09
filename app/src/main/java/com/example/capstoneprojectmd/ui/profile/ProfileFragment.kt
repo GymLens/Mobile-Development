@@ -15,10 +15,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.FragmentProfileBinding
-import android.content.pm.PackageManager
 import com.example.capstoneprojectmd.ui.password.ChangePasswordActivity
 import com.example.capstoneprojectmd.ui.signin.SignInActivity
+import android.content.pm.PackageManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import java.io.File
 import java.io.FileOutputStream
 
@@ -64,19 +67,23 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Observasi perubahan URI gambar
         profileViewModel.profileImageUri.observe(viewLifecycleOwner) { uri ->
-            uri?.let {
-                binding.profilePicture.setImageURI(it)
-            }
+            loadProfileImage(uri) // Load the profile image as a circle
         }
 
+        // Observasi perubahan data pengguna
         profileViewModel.user.observe(viewLifecycleOwner) { user ->
             if (user != null) {
                 binding.userEmail.text = user.email ?: "Email tidak tersedia"
                 binding.userName.text = user.displayName ?: "Nama tidak tersedia"
+
+                // Memastikan foto profil diperbarui
+                profileViewModel.fetchProfileImage()
             } else {
                 binding.userEmail.text = "Tidak ada pengguna yang login"
                 binding.userName.text = ""
+                binding.profilePicture.setImageResource(R.drawable.ic_profile_placeholder)
             }
         }
 
@@ -105,19 +112,32 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun navigateToChangePassword() {
-        Toast.makeText(requireContext(), "Ganti Kata Sandi Diklik", Toast.LENGTH_SHORT).show()
+    private fun loadProfileImage(uri: Uri?) {
+        if (uri != null) {
+            // Apply circular crop transformation using Glide
+            Glide.with(this)
+                .load(uri)
+                .apply(RequestOptions.circleCropTransform()) // This will make the image circular
+                .into(binding.profilePicture) // Assuming `profilePicture` is the ImageView
+        } else {
+            Glide.with(this)
+                .load(R.drawable.ic_profile_placeholder) // Your placeholder image
+                .apply(RequestOptions.circleCropTransform())
+                .into(binding.profilePicture)
+        }
+    }
 
+    private fun navigateToChangePassword() {
         val intent = Intent(requireContext(), ChangePasswordActivity::class.java)
         startActivity(intent)
     }
 
     private fun logout() {
+        profileViewModel.signOut()
         Toast.makeText(requireContext(), "Keluar...", Toast.LENGTH_SHORT).show()
         val intent = Intent(requireContext(), SignInActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-
     }
 
     private fun openCamera() {

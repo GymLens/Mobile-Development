@@ -8,24 +8,16 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.example.capstoneprojectmd.MainActivity
 import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.ActivitySigninBinding
-import com.example.capstoneprojectmd.model.LoginStatus
 import com.example.capstoneprojectmd.ui.signup.SignupActivity
-import com.google.firebase.auth.FirebaseUser
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySigninBinding
-    private val signInViewModel: SignInViewModel by viewModels()
-
-    private val RC_SIGN_IN = 9001
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,28 +25,7 @@ class SignInActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupAction()
-
-        signInViewModel.loginStatus.observe(this, Observer { status ->
-            when (status) {
-                is LoginStatus.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.loginButton.isEnabled = false
-                }
-                is LoginStatus.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.loginButton.isEnabled = true
-                    navigateToChatActivity(status.user)
-                }
-                is LoginStatus.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.loginButton.isEnabled = true
-                    showDialog("Login Gagal", status.message, true)
-                }
-            }
-        })
-
         setupPasswordVisibilityToggle()
-        setupTabNavigation()
     }
 
     private fun setupAction() {
@@ -62,9 +33,9 @@ class SignInActivity : AppCompatActivity() {
             val email = binding.emailInput.text.toString()
             val password = binding.passwordInput.text.toString()
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                signInViewModel.loginWithEmailPassword(email, password)
+                loginWithEmailPassword(email, password)
             } else {
-                showDialog("Input Tidak Valid", "Silakan lengkapi semua kolom.", true)
+                showDialog("Input Tidak Valid", "Silakan lengkapi semua kolom.")
             }
         }
 
@@ -74,20 +45,7 @@ class SignInActivity : AppCompatActivity() {
         }
 
         binding.forgotPassword.setOnClickListener {
-            showDialog("Lupa Kata Sandi", "Tautan reset telah dikirim ke email Anda.", false)
-        }
-    }
-
-
-    private fun setupTabNavigation() {
-        binding.registerTab.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
-            finish()
-        }
-
-        binding.loginTab.setOnClickListener {
-            startActivity(Intent(this, SignInActivity::class.java))
-            finish()
+            showDialog("Lupa Kata Sandi", "Tautan reset telah dikirim ke email Anda.")
         }
     }
 
@@ -108,41 +66,33 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                if (account != null) {
-                    signInViewModel.loginWithGoogle(account)
+    private fun loginWithEmailPassword(email: String, password: String) {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.loginButton.isEnabled = false
+
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            binding.progressBar.visibility = View.GONE
+            binding.loginButton.isEnabled = true
+
+            if (task.isSuccessful) {
+                val user = auth.currentUser
+                if (user != null) {
+                    navigateToMainActivity(user.displayName ?: "Pengguna")
                 }
-            } catch (e: ApiException) {
-                showDialog("Google Sign-In Gagal", "Kesalahan: ${e.localizedMessage}", true)
+            } else {
+                showDialog("Login Gagal", task.exception?.message ?: "Kesalahan tidak diketahui.")
             }
         }
     }
 
-    private fun navigateToChatActivity(user: FirebaseUser) {
-        AlertDialog.Builder(this).apply {
-            setTitle("Selamat!")
-            val displayName = user.displayName ?: "Pengguna"
-            setMessage("Login Berhasil. Halo $displayName!")
-            setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-
-                val intent = Intent(this@SignInActivity, MainActivity::class.java)
-                intent.putExtra("USER_NAME", displayName)
-                startActivity(intent)
-                finish()
-            }
-            create()
-            show()
-        }
+    private fun navigateToMainActivity(userName: String) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("USER_NAME", userName)
+        startActivity(intent)
+        finish()
     }
 
-
-    private fun showDialog(title: String, message: String, isError: Boolean) {
+    private fun showDialog(title: String, message: String) {
         AlertDialog.Builder(this).apply {
             setTitle(title)
             setMessage(message)
