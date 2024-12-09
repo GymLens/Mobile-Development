@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.capstoneprojectmd.MainActivity
 import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.ActivitySigninBinding
+import com.example.capstoneprojectmd.ui.password.ChangePasswordActivity
 import com.example.capstoneprojectmd.ui.signup.SignupActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -43,9 +43,8 @@ class SignInActivity : AppCompatActivity() {
             startActivity(Intent(this, SignupActivity::class.java))
             finish()
         }
-
         binding.forgotPassword.setOnClickListener {
-            showDialog("Lupa Kata Sandi", "Tautan reset telah dikirim ke email Anda.")
+            startActivity(Intent(this, ChangePasswordActivity::class.java))
         }
     }
 

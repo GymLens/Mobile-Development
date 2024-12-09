@@ -1,8 +1,10 @@
 package com.example.capstoneprojectmd.ui.password
 
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.ActivityChangePasswordBinding
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -11,6 +13,9 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityChangePasswordBinding
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
+
+    private var isOldPasswordVisible = false
+    private var isNewPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +30,8 @@ class ChangePasswordActivity : AppCompatActivity() {
                 updatePassword(oldPassword, newPassword)
             }
         }
+
+        setupPasswordVisibility()
     }
 
     private fun validatePassword(newPassword: String): Boolean {
@@ -64,6 +71,36 @@ class ChangePasswordActivity : AppCompatActivity() {
             }
         } else {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setupPasswordVisibility() {
+        // Toggle visibility for old password
+        binding.passwordVisibilityToggleOld.setOnClickListener {
+            isOldPasswordVisible = !isOldPasswordVisible
+            binding.etOldPassword.inputType = if (isOldPasswordVisible) {
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            } else {
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+            binding.etOldPassword.setSelection(binding.etOldPassword.text.length)
+            binding.passwordVisibilityToggleOld.setImageResource(
+                if (isOldPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
+            )
+        }
+
+        // Toggle visibility for new password
+        binding.passwordVisibilityToggleNew.setOnClickListener {
+            isNewPasswordVisible = !isNewPasswordVisible
+            binding.etNewPassword.inputType = if (isNewPasswordVisible) {
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            } else {
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+            binding.etNewPassword.setSelection(binding.etNewPassword.text.length)
+            binding.passwordVisibilityToggleNew.setImageResource(
+                if (isNewPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
+            )
         }
     }
 }
