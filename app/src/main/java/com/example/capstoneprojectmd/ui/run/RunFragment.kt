@@ -42,6 +42,9 @@ class RunFragment : Fragment(R.layout.fragment_run), OnMapReadyCallback {
     private var allLatLng = ArrayList<LatLng>()
     private var boundsBuilder = LatLngBounds.Builder()
 
+    private var startTime: Long = 0L
+    private var totalDistance: Float = 0f
+
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             when {
@@ -81,7 +84,7 @@ class RunFragment : Fragment(R.layout.fragment_run), OnMapReadyCallback {
 
         binding.btnStart.setOnClickListener {
             if (!isTracking) {
-                clearMaps()
+                resetTrackingData()
                 updateTrackingStatus(true)
                 startLocationUpdates()
             } else {
@@ -97,6 +100,16 @@ class RunFragment : Fragment(R.layout.fragment_run), OnMapReadyCallback {
         getMyLastLocation()
         createLocationRequest()
         createLocationCallback()
+    }
+
+    private fun resetTrackingData() {
+        totalDistance = 0f
+        startTime = 0L
+        allLatLng.clear()
+        boundsBuilder = LatLngBounds.Builder()
+        binding.tvDistance.text = getString(R.string.distance_placeholder)
+        binding.tvDuration.text = getString(R.string.duration_placeholder)
+        mMap.clear()
     }
 
     private fun checkPermission(permission: String): Boolean {
@@ -131,9 +144,9 @@ class RunFragment : Fragment(R.layout.fragment_run), OnMapReadyCallback {
     }
 
     private fun createLocationRequest() {
-        locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, TimeUnit.SECONDS.toMillis(2))
+        locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, TimeUnit.SECONDS.toMillis(1))
             .apply {
-                setMaxUpdateDelayMillis(TimeUnit.SECONDS.toMillis(2))
+                setMaxUpdateDelayMillis(TimeUnit.SECONDS.toMillis(1))
             }.build()
 
         val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
@@ -157,25 +170,24 @@ class RunFragment : Fragment(R.layout.fragment_run), OnMapReadyCallback {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 for (location in locationResult.locations) {
-                    if (location.accuracy <= 20) {
-                        val lastLatLng = LatLng(location.latitude, location.longitude)
-                        allLatLng.add(lastLatLng)
-                        mMap.addPolyline(
-                            PolylineOptions()
-                                .color(Color.CYAN)
-                                .width(10f)
-                                .addAll(allLatLng)
-                        )
-                        boundsBuilder.include(lastLatLng)
-                        val bounds: LatLngBounds = boundsBuilder.build()
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
-                    }
+                    val lastLatLng = LatLng(location.latitude, location.longitude)
+                    allLatLng.add(lastLatLng)
+                    mMap.addPolyline(
+                        PolylineOptions()
+                            .color(Color.CYAN)
+                            .width(10f)
+                            .addAll(allLatLng)
+                    )
+                    boundsBuilder.include(lastLatLng)
+                    val bounds: LatLngBounds = boundsBuilder.build()
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 64))
                 }
             }
         }
     }
 
     private fun startLocationUpdates() {
+        startTime = System.currentTimeMillis()
         try {
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
         } catch (exception: SecurityException) {
@@ -185,6 +197,35 @@ class RunFragment : Fragment(R.layout.fragment_run), OnMapReadyCallback {
 
     private fun stopLocationUpdates() {
         fusedLocationClient.removeLocationUpdates(locationCallback)
+
+        val endTime = System.currentTimeMillis()
+        val durationInMillis = endTime - startTime
+        val durationInMinutes = TimeUnit.MILLISECONDS.toMinutes(durationInMillis)
+        calculateTotalDistance()
+
+        binding.tvDistance.text = "Jarak: %.2f meter".format(totalDistance)
+        binding.tvDuration.text = "Durasi: %d menit".format(durationInMinutes)
+
+        Toast.makeText(
+            requireContext(),
+            "Jarak: %.2f meter, Durasi: %d menit".format(totalDistance, durationInMinutes),
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun calculateTotalDistance() {
+        totalDistance = 0f
+        for (i in 1 until allLatLng.size) {
+            val result = FloatArray(1)
+            val startPoint = allLatLng[i - 1]
+            val endPoint = allLatLng[i]
+            Location.distanceBetween(
+                startPoint.latitude, startPoint.longitude,
+                endPoint.latitude, endPoint.longitude,
+                result
+            )
+            totalDistance += result[0]
+        }
     }
 
     private fun updateTrackingStatus(newStatus: Boolean) {
@@ -194,12 +235,6 @@ class RunFragment : Fragment(R.layout.fragment_run), OnMapReadyCallback {
         } else {
             getString(R.string.start_running)
         }
-    }
-
-    private fun clearMaps() {
-        mMap.clear()
-        allLatLng.clear()
-        boundsBuilder = LatLngBounds.Builder()
     }
 
     override fun onDestroyView() {
