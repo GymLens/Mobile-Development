@@ -40,6 +40,7 @@ android {
     buildFeatures {
         buildConfig = true
         viewBinding = true
+        dataBinding = true
     }
 
     packaging {
@@ -92,6 +93,8 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.5.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation(libs.play.services.drive)
+    implementation(libs.androidx.runtime.android)
 
     // Testing
     testImplementation("junit:junit:4.13.2")
@@ -118,6 +121,9 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+
+    implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 
 }
 

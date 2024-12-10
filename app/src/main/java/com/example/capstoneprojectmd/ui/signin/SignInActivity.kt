@@ -11,6 +11,7 @@ import com.example.capstoneprojectmd.MainActivity
 import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.ActivitySigninBinding
 import com.example.capstoneprojectmd.ui.password.ChangePasswordActivity
+import com.example.capstoneprojectmd.ui.password.ForgotPasswordActivity
 import com.example.capstoneprojectmd.ui.signup.SignupActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -44,7 +45,7 @@ class SignInActivity : AppCompatActivity() {
             finish()
         }
         binding.forgotPassword.setOnClickListener {
-            startActivity(Intent(this, ChangePasswordActivity::class.java))
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
     }
 

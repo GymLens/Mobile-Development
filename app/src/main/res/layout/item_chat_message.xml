@@ -1,19 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/messageText"
+    <!-- User Message Layout -->
+    <LinearLayout
+        android:id="@+id/userMessageLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Message"
-        android:textSize="16sp"
-        android:maxWidth="250dp"
-        android:padding="8dp"
-        android:layout_gravity="start"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:padding="4dp">
+
+        <!-- User Image -->
+        <ImageView
+            android:id="@+id/ivUserImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:contentDescription="@string/user_image" />
+
+        <!-- User Message Text -->
+        <TextView
+            android:id="@+id/tvUserMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_user_message"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:text="User message" />
+    </LinearLayout>
+
+    <!-- Bot Message Layout -->
+    <LinearLayout
+        android:id="@+id/botMessageLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:padding="4dp">
+
+        <!-- Bot Image -->
+        <ImageView
+            android:id="@+id/ivBotImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            android:contentDescription="@string/bot_image" />
+
+        <!-- Bot Message Text -->
+        <TextView
+            android:id="@+id/tvBotMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_bot_message"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:text="Bot message" />
+    </LinearLayout>
+</LinearLayout>

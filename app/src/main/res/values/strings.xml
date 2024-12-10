@@ -68,4 +68,6 @@
     <string name="password_old">Kata Sandi Lama</string>
     <string name="distance_placeholder">Jarak: 0.0 meter</string>
     <string name="duration_placeholder">Durasi: 0 menit</string>
+    <string name="user_image">user</string>
+    <string name="bot_image">bot</string>
 </resources>

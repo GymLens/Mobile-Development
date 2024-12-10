@@ -4,21 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.capstoneprojectmd.MainActivity
 import com.example.capstoneprojectmd.R
 import com.example.capstoneprojectmd.databinding.ActivitySignupBinding
 import com.example.capstoneprojectmd.ui.signin.SignInActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -27,7 +20,6 @@ class SignupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignupBinding
     private val signupViewModel: SignupViewModel by viewModels()
-    private val RC_SIGN_IN = 9001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,21 +97,6 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                if (account != null) {
-                    signupViewModel.registerWithGoogle(account)
-                }
-            } catch (e: ApiException) {
-                showDialog("Google Sign-Up Gagal", "Kesalahan: ${e.localizedMessage}", true)
-            }
-        }
-    }
-
     private fun navigateToMainActivity(user: FirebaseUser) {
         val fullName = binding.fullNameInput.text.toString()
 
@@ -131,10 +108,12 @@ class SignupActivity : AppCompatActivity() {
             setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
 
+                // Menavigasi ke halaman ForgotPasswordActivity setelah pendaftaran sukses
+                val email = user.email
                 val intent = Intent(this@SignupActivity, SignInActivity::class.java)
-                intent.putExtra("FULL_NAME", fullName)
+                intent.putExtra("EMAIL", email) // Kirim email ke ForgotPasswordActivity
                 startActivity(intent)
-                finish()
+                finish() // Menutup halaman signup
             }
             create()
             show()
@@ -151,13 +130,12 @@ class SignupActivity : AppCompatActivity() {
         user?.updateProfile(profileUpdates)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("SignupActivity", "Profil pengguna diperbarui dengan nama lengkap.")
+                    // Profil pengguna diperbarui
                 } else {
-                    Log.d("SignupActivity", "Kesalahan saat memperbarui profil: ${task.exception?.message}")
+                    // Gagal memperbarui profil
                 }
             }
     }
-
 
     private fun showDialog(title: String, message: String, isError: Boolean) {
         AlertDialog.Builder(this).apply {

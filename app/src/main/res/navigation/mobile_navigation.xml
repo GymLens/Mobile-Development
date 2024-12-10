@@ -32,6 +32,7 @@
         tools:layout="@layout/fragment_result" />
 
     <fragment
+
         android:id="@+id/navigation_chatbot"
         android:name="com.example.capstoneprojectmd.ui.chatbot.ChatFragment"
         android:label="@string/title_chatbot"

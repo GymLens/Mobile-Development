@@ -68,6 +68,12 @@
             android:label="@string/title_change_password"
             android:theme="@style/Theme.CapstoneProjectMD" />
 
+        <activity
+            android:name=".ui.password.ForgotPasswordActivity"
+            android:exported="true"
+            android:label="@string/title_change_password"
+            android:theme="@style/Theme.CapstoneProjectMD" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.capstoneprojectmd.fileprovider"
