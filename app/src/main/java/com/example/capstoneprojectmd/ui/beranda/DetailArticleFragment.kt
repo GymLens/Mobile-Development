@@ -1,6 +1,7 @@
 package com.example.capstoneprojectmd.ui.beranda
 
 import android.os.Bundle
+import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,12 +28,15 @@ class DetailArticleFragment : Fragment() {
         val article = arguments?.getSerializable(ARTICLE_KEY) as? DataItem
         article?.let {
             binding.titleTextView.text = it.title
+
             Glide.with(binding.imageView.context)
                 .load(it.image)
                 .placeholder(android.R.color.darker_gray)
                 .into(binding.imageView)
 
             binding.contentTextView.text = it.url
+
+            Linkify.addLinks(binding.contentTextView, Linkify.WEB_URLS)
         }
 
         binding.fabBack.setOnClickListener {
