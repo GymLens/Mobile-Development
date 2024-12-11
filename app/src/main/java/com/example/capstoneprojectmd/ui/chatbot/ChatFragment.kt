@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.capstoneprojectmd.data.model.Chat
 import com.example.capstoneprojectmd.databinding.FragmentChatBinding
-import kotlinx.coroutines.flow.collectLatest
 
 class ChatFragment : Fragment() {
 
     private var _binding: FragmentChatBinding? = null
     private val binding get() = _binding!!
+
     private val chatViewModel: ChatViewModel by viewModels()
-    private lateinit var chatAdapter: ChatAdapter
+    private val chatAdapter = ChatAdapter(mutableListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,50 +30,33 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerView()
-        setupObservers()
-        setupListeners()
-    }
+        // Setup RecyclerView
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = chatAdapter
 
-    private fun setupRecyclerView() {
-        chatAdapter = ChatAdapter()
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireContext()).apply {
-                stackFromEnd = true
-            }
-            adapter = chatAdapter
+        chatViewModel.chatResponse.observe(viewLifecycleOwner) { response ->
+            chatAdapter.addChat(Chat(response.message, isFromUser = false))
+            binding.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
         }
-    }
 
-    private fun setupObservers() {
-        lifecycleScope.launchWhenStarted {
-            chatViewModel.chatState.collectLatest { state ->
-                chatAdapter.submitList(state.chatList)
-                if (state.chatList.isNotEmpty()) {
-                    binding.recyclerView.scrollToPosition(0)
-                }
-            }
+        chatViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
-    }
 
-    private fun setupListeners() {
-        // Handle send button click
-        binding.sendButton.setOnClickListener {
-            val userMessage = binding.etMessage.text.toString()
-            if (userMessage.isNotEmpty()) {
-                chatViewModel.onEvent(ChatUiEvent.SendPrompt(userMessage, null))
-                binding.etMessage.text.clear()
+        chatViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
+            Toast.makeText(requireContext(), "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.btnSend.setOnClickListener {
+            val prompt = binding.etChatInput.text.toString().trim()
+            if (prompt.isNotBlank()) {
+                chatViewModel.sendChatRequest(prompt)
+                chatAdapter.addChat(Chat(prompt, isFromUser = true))
+                binding.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
+                binding.etChatInput.text.clear()
             } else {
-                Toast.makeText(requireContext(), "Message cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Input cannot be empty", Toast.LENGTH_SHORT).show()
             }
-        }
-        binding.etMessage.setOnEditorActionListener { _, _, _ ->
-            val userMessage = binding.etMessage.text.toString()
-            if (userMessage.isNotEmpty()) {
-                chatViewModel.onEvent(ChatUiEvent.SendPrompt(userMessage, null))
-                binding.etMessage.text.clear()
-            }
-            true
         }
     }
 

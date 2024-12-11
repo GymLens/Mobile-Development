@@ -1,17 +1,15 @@
-package com.dicoding.myapplicationcapstone.data.api
+package com.example.capstoneprojectmd.data.api
 
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
+import com.example.capstoneprojectmd.data.response.ChatContentResponse
+import com.example.capstoneprojectmd.data.response.ChatRequest
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
-
-    // POST request to send data to the Gemini API
-    @POST("models/gemini-1.5-flash-latest:generateContent") // This is just an example endpoint, change to actual one
-    suspend fun sendRequest(
-        @Header("Authorization") token: String,  // Passing API token as header (Bearer token)
-        @Body requestBody: RequestBody          // Request body containing the model input
-    ): ResponseBody // Return the raw response body (you can parse it accordingly)
+    @POST("v1/projects/241705916714/locations/us-central1/endpoints/7520317585871601664:generateContent")
+    suspend fun generateChatResponse(
+        @Header("Authorization") authorization: String,
+        @Body chatRequest: ChatRequest
+    ): ChatContentResponse
 }

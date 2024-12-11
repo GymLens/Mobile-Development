@@ -2,7 +2,7 @@ package com.example.capstoneprojectmd.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ChatbotResponse(
+data class ChatRequest(
 
 	@field:SerializedName("safety_settings")
 	val safetySettings: SafetySettings? = null,
@@ -17,12 +17,6 @@ data class ChatbotResponse(
 	val generationConfig: GenerationConfig? = null
 )
 
-data class PartsItem(
-
-	@field:SerializedName("text")
-	val text: String? = null
-)
-
 data class Contents(
 
 	@field:SerializedName("role")
@@ -32,19 +26,10 @@ data class Contents(
 	val parts: Parts? = null
 )
 
-data class SystemInstruction(
+data class Parts(
 
-	@field:SerializedName("parts")
-	val parts: List<PartsItem?>? = null
-)
-
-data class SafetySettings(
-
-	@field:SerializedName("threshold")
-	val threshold: String? = null,
-
-	@field:SerializedName("category")
-	val category: String? = null
+	@field:SerializedName("text")
+	val text: String? = null
 )
 
 data class GenerationConfig(
@@ -68,7 +53,22 @@ data class GenerationConfig(
 	val candidateCount: Int? = null
 )
 
-data class Parts(
+data class SystemInstruction(
+
+	@field:SerializedName("parts")
+	val parts: List<PartsItem?>? = null
+)
+
+data class SafetySettings(
+
+	@field:SerializedName("threshold")
+	val threshold: String? = null,
+
+	@field:SerializedName("category")
+	val category: String? = null
+)
+
+data class PartsItem(
 
 	@field:SerializedName("text")
 	val text: String? = null

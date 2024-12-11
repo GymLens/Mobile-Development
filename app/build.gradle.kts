@@ -124,6 +124,9 @@ dependencies {
 
     implementation("com.google.ai.client.generativeai:generativeai:0.1.2")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    implementation ("androidx.recyclerview:recyclerview:1.3.0")
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+
 
 }
 

@@ -1,44 +1,60 @@
 package com.example.capstoneprojectmd.data.api
 
-import com.dicoding.myapplicationcapstone.data.api.ApiService
+import android.util.Log
 import okhttp3.OkHttpClient
-import okhttp3.Interceptor
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
+import java.net.URL
+import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    // Base URL untuk Google Gemini AI API
-    private const val BASE_URL = "https://generativelanguage.googleapis.com/v1beta/"
+    private const val TAG = "ApiConfig"
+    private const val BASE_URL = "https://us-central1-aiplatform.googleapis.com/"
+    private const val TOKEN_URL = "https://gymlens-ml-api-241705916714.asia-southeast2.run.app/generate-token"
 
-    // Instance ApiService
-    val apiService: ApiService by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(createOkHttpClient())
-            .build()
-            .create(ApiService::class.java)
+    private var currentToken: String? = null
+    private var tokenExpiryTime: Long = 0
+
+    private val client = OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .addInterceptor(HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        })
+        .build()
+
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(client)
+        .build()
+
+    private val apiService: ApiService = retrofit.create(ApiService::class.java)
+
+    fun getApiService(): ApiService {
+        return apiService
     }
 
-    // Membuat OkHttpClient dengan Authorization header
-    private fun createOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(AuthorizationInterceptor())
-            .build()
-    }
+    suspend fun getAuthToken(): String? {
+        val currentTime = System.currentTimeMillis()
+        if (currentToken != null && currentTime < tokenExpiryTime - 5 * 60 * 1000) {
+            Log.d(TAG, "Using cached token: $currentToken")
+            return currentToken
+        }
 
-    // Interceptor untuk menambahkan Authorization header ke setiap request
-    private class AuthorizationInterceptor : Interceptor {
-        @Throws(IOException::class)
-        override fun intercept(chain: Interceptor.Chain): Response {
-            val apiKey = "AIzaSyD8hb1RoDGCzvQtZccNL634gXculI3-X6I" // Ganti dengan API Key Anda
-            val newRequest: Request = chain.request().newBuilder()
-                .addHeader("Authorization", "Bearer $apiKey")
-                .build()
-            return chain.proceed(newRequest)
+        return try {
+            val response = URL(TOKEN_URL).readText()
+            val jsonResponse = JSONObject(response)
+            currentToken = jsonResponse.optString("accessToken", null)
+            tokenExpiryTime = System.currentTimeMillis() + 3600 * 1000
+            Log.d(TAG, "Successfully retrieved token: $currentToken")
+            currentToken
+        } catch (e: Exception) {
+            Log.e(TAG, "Error fetching token: ${e.message}")
+            null
         }
     }
 }
+

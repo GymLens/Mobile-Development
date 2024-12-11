@@ -1,77 +1,99 @@
 package com.example.capstoneprojectmd.ui.chatbot
 
-import android.graphics.Bitmap
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.capstoneprojectmd.model.Chat
-import com.example.capstoneprojectmd.model.ChatData
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import com.example.capstoneprojectmd.data.api.ApiConfig
+import com.example.capstoneprojectmd.data.model.Chat
+import com.example.capstoneprojectmd.data.response.ChatRequest
+import com.example.capstoneprojectmd.data.response.Parts
+import com.example.capstoneprojectmd.data.response.PartsItem
+import com.example.capstoneprojectmd.data.response.SystemInstruction
+import com.example.capstoneprojectmd.data.response.GenerationConfig
+import com.example.capstoneprojectmd.data.response.toData
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
+import kotlinx.coroutines.withContext
 
 class ChatViewModel : ViewModel() {
 
-    private val _chatState = MutableStateFlow(ChatState())
-    val chatState = _chatState.asStateFlow()
+    private val _chatResponse = MutableLiveData<Chat>()
+    val chatResponse: LiveData<Chat> = _chatResponse
 
-    fun onEvent(event: ChatUiEvent) {
-        when (event) {
-            is ChatUiEvent.SendPrompt -> {
-                if (event.prompt.isNotEmpty()) {
-                    addPrompt(event.prompt, event.bitmap)
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
-                    if (event.bitmap != null) {
-                        getResponseWithImage(event.prompt, event.bitmap)
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+
+    private val chatHistory = mutableListOf<Parts>()
+
+    fun sendChatRequest(prompt: String) {
+        val isExplanationRequest = prompt.contains("explain", ignoreCase = true) ||
+                prompt.contains("tell me more", ignoreCase = true)
+
+        chatHistory.add(Parts(text = prompt))
+
+        val systemInstruction = SystemInstruction(
+            parts = listOf(
+                PartsItem(
+                    text = if (isExplanationRequest) {
+                        "Provide a detailed explanation for the user's query."
                     } else {
-                        getResponse(event.prompt)
+                        "Classify the text into one of the following categories: [gym, health, nutrition]."
                     }
-                }
-            }
-
-            is ChatUiEvent.UpdatePrompt -> {
-                _chatState.update {
-                    it.copy(prompt = event.newPrompt)
-                }
-            }
-        }
-    }
-
-    private fun addPrompt(prompt: String, bitmap: Bitmap?) {
-        _chatState.update {
-            it.copy(
-                chatList = it.chatList.toMutableList().apply {
-                    add(0, Chat(prompt, bitmap, true))
-                },
-                prompt = "",
-                bitmap = null
+                )
             )
-        }
+        )
+
+        val chatRequest = ChatRequest(
+            contents = com.example.capstoneprojectmd.data.response.Contents(
+                role = "user",
+                parts = Parts(text = prompt)
+            ),
+            systemInstruction = systemInstruction,
+            generationConfig = GenerationConfig(
+                temperature = if (isExplanationRequest) 0.9 else 0.7,
+                topP = 0.5,
+                topK = 3,
+                candidateCount = 1,
+                stopSequences = listOf()
+            )
+        )
+
+        sendRequest(chatRequest)
     }
 
-    private fun getResponse(prompt: String) {
+    private fun sendRequest(chatRequest: ChatRequest) {
         viewModelScope.launch {
-            val chat = ChatData.getResponse(prompt)
-            _chatState.update {
-                it.copy(
-                    chatList = it.chatList.toMutableList().apply {
-                        add(0, chat)
-                    }
-                )
-            }
-        }
-    }
+            _isLoading.value = true
+            try {
+                val token = withContext(Dispatchers.IO) { ApiConfig.getAuthToken() }
+                Log.d("ChatViewModel", "Token: $token")
 
-    private fun getResponseWithImage(prompt: String, bitmap: Bitmap) {
-        viewModelScope.launch {
-            val chat = ChatData.getResponseWithImage(prompt, bitmap)
-            _chatState.update {
-                it.copy(
-                    chatList = it.chatList.toMutableList().apply {
-                        add(0, chat)
+                if (!token.isNullOrEmpty()) {
+                    val chatContentResponse = withContext(Dispatchers.IO) {
+                        ApiConfig.getApiService().generateChatResponse(
+                            authorization = "Bearer $token",
+                            chatRequest = chatRequest
+                        )
                     }
-                )
+
+                    Log.d("ChatViewModel", "Response: $chatContentResponse")
+
+                    chatContentResponse?.let {
+                        _chatResponse.value = it.toData()
+                    }
+                } else {
+                    _error.value = "Failed to retrieve a valid token."
+                }
+            } catch (e: Exception) {
+                _error.value = e.message ?: "Unknown error occurred."
+                Log.e("ChatViewModel", "Error: ${e.message}")
+            } finally {
+                _isLoading.value = false
             }
         }
     }
