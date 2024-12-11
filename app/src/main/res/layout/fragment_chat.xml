@@ -5,6 +5,26 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- Toolbar with Back Button and Title -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chat"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+    </LinearLayout>
+
     <!-- ProgressBar for loading -->
     <ProgressBar
         android:id="@+id/progressBar"
@@ -23,14 +43,15 @@
         android:clipToPadding="false"
         android:scrollbars="vertical" />
 
-    <!-- Input area with EditText and Send Button -->
+    <!-- Input area with EditText and Send ImageButton -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/text"
         android:gravity="center_vertical"
-        android:paddingTop="8dp"
-        android:layout_marginBottom="60dp"> <!-- Added marginBottom here -->
+        android:orientation="horizontal"
+        android:padding="8dp">
 
         <EditText
             android:id="@+id/etChatInput"
@@ -39,14 +60,20 @@
             android:layout_weight="1"
             android:hint="Type your message"
             android:inputType="text"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:gravity="center" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Send"
-            android:padding="8dp" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="Send"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/send" />
+
     </LinearLayout>
 
 </LinearLayout>

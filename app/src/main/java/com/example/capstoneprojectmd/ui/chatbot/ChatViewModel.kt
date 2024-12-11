@@ -42,7 +42,7 @@ class ChatViewModel : ViewModel() {
                     text = if (isExplanationRequest) {
                         "Provide a detailed explanation for the user's query."
                     } else {
-                        "Classify the text into one of the following categories: [gym, health, nutrition]."
+                        "Analyze the input text and classify it into one of the following categories strictly: [gym, health, nutrition]. Do not include additional explanations or categories."
                     }
                 )
             )
@@ -55,9 +55,9 @@ class ChatViewModel : ViewModel() {
             ),
             systemInstruction = systemInstruction,
             generationConfig = GenerationConfig(
-                temperature = if (isExplanationRequest) 0.9 else 0.7,
-                topP = 0.5,
-                topK = 3,
+                temperature = if (isExplanationRequest) 0.9 else 0.0,
+                topP = 1.0,
+                topK = 1,
                 candidateCount = 1,
                 stopSequences = listOf()
             )
