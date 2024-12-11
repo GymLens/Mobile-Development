@@ -18,52 +18,40 @@ class ForgotPasswordActivity : AppCompatActivity() {
         binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Mendapatkan email yang digunakan untuk mendaftar (dikirim melalui Intent)
-        val email = intent.getStringExtra("EMAIL") ?: ""
-
-        // Log untuk memeriksa apakah email diterima
-        println("EMAIL intent received: $email")
-
         binding.btnSubmit.setOnClickListener {
-            val oldPassword = binding.etOldPassword.text.toString().trim()
-            val newPassword = binding.etNewPassword.text.toString().trim()
+            val inputEmail = binding.etEmail.text.toString().trim()
 
-            // Log nilai input untuk debug
-            println("OldPassword: $oldPassword, NewPassword: $newPassword, Email: $email")
-
-            if (email.isNotEmpty() && oldPassword.isNotEmpty() && newPassword.isNotEmpty()) {
-                // Lanjutkan proses pengubahan password
-                changePassword(email, oldPassword, newPassword)
-            } else {
-                Toast.makeText(this, "Semua kolom harus diisi.", Toast.LENGTH_SHORT).show()
+            if (isInputValid(inputEmail)) {
+                sendPasswordResetEmail(inputEmail)
             }
         }
     }
 
-    private fun changePassword(email: String, oldPassword: String, newPassword: String) {
-        // Autentikasi pengguna menggunakan email dan password lama
-        auth.signInWithEmailAndPassword(email, oldPassword).addOnCompleteListener { signInTask ->
-            if (signInTask.isSuccessful) {
-                // Jika login berhasil, perbarui password dengan password baru
-                val user = auth.currentUser
-                user?.updatePassword(newPassword)?.addOnCompleteListener { updateTask ->
-                    if (updateTask.isSuccessful) {
-                        Toast.makeText(this, "Password berhasil diubah.", Toast.LENGTH_SHORT).show()
-                        navigateToLogin() // Pindah ke halaman login
-                    } else {
-                        Toast.makeText(this, "Gagal mengubah password: ${updateTask.exception?.message}", Toast.LENGTH_SHORT).show()
-                    }
-                }
+    private fun isInputValid(email: String): Boolean {
+        when {
+            email.isBlank() -> {
+                Toast.makeText(this, "Email tidak boleh kosong.", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            else -> return true
+        }
+    }
+
+    private fun sendPasswordResetEmail(email: String) {
+        auth.sendPasswordResetEmail(email).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Email untuk mereset password sudah dikirim.", Toast.LENGTH_SHORT).show()
+                navigateToSignIn()
             } else {
-                Toast.makeText(this, "Password lama salah: ${signInTask.exception?.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Gagal mengirim email: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun navigateToLogin() {
+    private fun navigateToSignIn() {
         val intent = Intent(this, SignInActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
-        finish() // Menutup aktivitas saat ini
+        finish()
     }
 }

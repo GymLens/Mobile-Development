@@ -70,4 +70,7 @@
     <string name="duration_placeholder">Durasi: 0 menit</string>
     <string name="user_image">user</string>
     <string name="bot_image">bot</string>
+    <string name="email_hintt">"Masukan Email "</string>
+    <string name="kirim">kirim</string>
+    <string name="text_email">Email</string>
 </resources>
