@@ -8,7 +8,7 @@ GymLens is a mobile application designed to assist users in their fitness journe
   Automatically classifies gym equipment using machine learning and provides instructional videos for proper use.
 
 - **Running Activity Tracker**  
-  Tracks running activities, measuring distance, duration, and progress.
+  Tracks running activities, measuring distance and duration.
 
 - **Chatbot Assistance**  
   A chatbot that provides fitness advice, workout plans, and more.
