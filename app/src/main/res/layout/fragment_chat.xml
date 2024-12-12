@@ -51,7 +51,7 @@
         android:background="@drawable/text"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="2dp">
 
         <EditText
             android:id="@+id/etChatInput"
@@ -65,8 +65,8 @@
 
         <ImageButton
             android:id="@+id/btnSend"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="Send"

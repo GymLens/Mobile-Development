@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.capstoneprojectmd.data.model.Chat
 import com.example.capstoneprojectmd.databinding.FragmentChatBinding
 
+
 class ChatFragment : Fragment() {
 
     private var _binding: FragmentChatBinding? = null
@@ -34,19 +35,31 @@ class ChatFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = chatAdapter
 
+        // Mengamati respons chat
         chatViewModel.chatResponse.observe(viewLifecycleOwner) { response ->
             chatAdapter.addChat(Chat(response.message, isFromUser = false))
             binding.recyclerView.scrollToPosition(chatAdapter.itemCount - 1)
         }
 
+        // Mengamati status loading
         chatViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
+        // Mengamati pesan kesalahan
         chatViewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             Toast.makeText(requireContext(), "Error: $errorMessage", Toast.LENGTH_SHORT).show()
         }
 
+        // Mengamati peringatan kata kunci yang hilang
+        chatViewModel.keywordAlert.observe(viewLifecycleOwner) { alertMessage ->
+            if (alertMessage.isNotEmpty()) {
+                // Menampilkan pesan kata kunci yang hilang menggunakan Toast
+                Toast.makeText(requireContext(), alertMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Mengirim permintaan chat ketika tombol kirim ditekan
         binding.btnSend.setOnClickListener {
             val prompt = binding.etChatInput.text.toString().trim()
             if (prompt.isNotBlank()) {

@@ -22,6 +22,9 @@ class ChatViewModel : ViewModel() {
     private val _chatResponse = MutableLiveData<Chat>()
     val chatResponse: LiveData<Chat> = _chatResponse
 
+    private val _keywordAlert = MutableLiveData<String>()
+    val keywordAlert: LiveData<String> = _keywordAlert
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -34,7 +37,14 @@ class ChatViewModel : ViewModel() {
         val isExplanationRequest = prompt.contains("explain", ignoreCase = true) ||
                 prompt.contains("tell me more", ignoreCase = true)
 
+        // Menambahkan input ke dalam riwayat chat
         chatHistory.add(Parts(text = prompt))
+
+        if (!isExplanationRequest) {
+            _keywordAlert.value = "gunakan kata kunci seperti 'explain'/'tell me more' jika ingin penjelasan."
+        } else {
+            _keywordAlert.value = ""
+        }
 
         val systemInstruction = SystemInstruction(
             parts = listOf(
