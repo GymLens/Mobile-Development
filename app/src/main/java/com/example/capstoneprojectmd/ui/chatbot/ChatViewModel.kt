@@ -19,8 +19,8 @@ import kotlinx.coroutines.withContext
 
 class ChatViewModel : ViewModel() {
 
-    private val _chatResponse = MutableLiveData<Chat>()
-    val chatResponse: LiveData<Chat> = _chatResponse
+    private val _chatResponse = MutableLiveData<Chat?>()
+    val chatResponse: LiveData<Chat?> = _chatResponse
 
     private val _keywordAlert = MutableLiveData<String>()
     val keywordAlert: LiveData<String> = _keywordAlert
@@ -33,15 +33,19 @@ class ChatViewModel : ViewModel() {
 
     private val chatHistory = mutableListOf<Parts>()
 
+    init {
+        clearChatHistory()
+    }
+
     fun sendChatRequest(prompt: String) {
         val isExplanationRequest = prompt.contains("explain", ignoreCase = true) ||
                 prompt.contains("tell me more", ignoreCase = true)
 
-        // Menambahkan input ke dalam riwayat chat
         chatHistory.add(Parts(text = prompt))
 
         if (!isExplanationRequest) {
-            _keywordAlert.value = "gunakan kata kunci seperti 'explain'/'tell me more' jika ingin penjelasan."
+            _keywordAlert.value =
+                "gunakan kata kunci seperti 'explain'/'tell me more' jika ingin penjelasan."
         } else {
             _keywordAlert.value = ""
         }
@@ -106,5 +110,11 @@ class ChatViewModel : ViewModel() {
                 _isLoading.value = false
             }
         }
+    }
+
+    fun clearChatHistory() {
+        chatHistory.clear()
+        _chatResponse.value = null // Bersihkan respons
+        Log.d("ChatViewModel", "Chat history cleared.")
     }
 }

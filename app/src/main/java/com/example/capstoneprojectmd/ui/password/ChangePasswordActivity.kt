@@ -51,12 +51,10 @@ class ChangePasswordActivity : AppCompatActivity() {
         val email = user?.email ?: ""
 
         if (user != null && email.isNotEmpty()) {
-            // Re-authenticate the user with the old password
             val credential = EmailAuthProvider.getCredential(email, oldPassword)
 
             user.reauthenticate(credential).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Update to the new password
                     user.updatePassword(newPassword).addOnCompleteListener { updateTask ->
                         if (updateTask.isSuccessful) {
                             Toast.makeText(this, "Password updated successfully", Toast.LENGTH_SHORT).show()
@@ -75,7 +73,6 @@ class ChangePasswordActivity : AppCompatActivity() {
     }
 
     private fun setupPasswordVisibility() {
-        // Toggle visibility for old password
         binding.passwordVisibilityToggleOld.setOnClickListener {
             isOldPasswordVisible = !isOldPasswordVisible
             binding.etOldPassword.inputType = if (isOldPasswordVisible) {
@@ -89,7 +86,6 @@ class ChangePasswordActivity : AppCompatActivity() {
             )
         }
 
-        // Toggle visibility for new password
         binding.passwordVisibilityToggleNew.setOnClickListener {
             isNewPasswordVisible = !isNewPasswordVisible
             binding.etNewPassword.inputType = if (isNewPasswordVisible) {

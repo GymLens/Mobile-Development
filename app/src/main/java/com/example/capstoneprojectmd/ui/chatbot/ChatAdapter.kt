@@ -13,12 +13,10 @@ class ChatAdapter(private val chatList: MutableList<Chat>) :
     class ChatViewHolder(private val binding: ItemMessageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(chat: Chat) {
             if (chat.isFromUser) {
-                // Tampilkan bubble untuk user di sebelah kanan
                 binding.tvUserMessage.text = chat.message
                 binding.tvUserMessage.visibility = View.VISIBLE
                 binding.tvBotMessage.visibility = View.GONE
             } else {
-                // Tampilkan bubble untuk bot di sebelah kiri
                 binding.tvBotMessage.text = chat.message
                 binding.tvBotMessage.visibility = View.VISIBLE
                 binding.tvUserMessage.visibility = View.GONE
@@ -40,5 +38,9 @@ class ChatAdapter(private val chatList: MutableList<Chat>) :
     fun addChat(chat: Chat) {
         chatList.add(chat)
         notifyItemInserted(chatList.size - 1)
+    }
+    fun clearChats() {
+        chatList.clear()
+        notifyDataSetChanged()
     }
 }

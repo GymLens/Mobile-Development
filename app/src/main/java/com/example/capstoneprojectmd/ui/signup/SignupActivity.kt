@@ -108,12 +108,11 @@ class SignupActivity : AppCompatActivity() {
             setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
 
-                // Menavigasi ke halaman ForgotPasswordActivity setelah pendaftaran sukses
                 val email = user.email
                 val intent = Intent(this@SignupActivity, SignInActivity::class.java)
-                intent.putExtra("EMAIL", email) // Kirim email ke ForgotPasswordActivity
+                intent.putExtra("EMAIL", email)
                 startActivity(intent)
-                finish() // Menutup halaman signup
+                finish()
             }
             create()
             show()
@@ -130,9 +129,7 @@ class SignupActivity : AppCompatActivity() {
         user?.updateProfile(profileUpdates)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Profil pengguna diperbarui
                 } else {
-                    // Gagal memperbarui profil
                 }
             }
     }

@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Toolbar with Back Button and Title -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +12,6 @@
         android:gravity="center"
         android:padding="8dp">
 
-        <!-- Title -->
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
@@ -24,8 +22,6 @@
             android:gravity="center" />
 
     </LinearLayout>
-
-    <!-- ProgressBar for loading -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -33,7 +29,6 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
-    <!-- RecyclerView to show the chat messages -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -42,8 +37,26 @@
         android:padding="8dp"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!-- Input area with EditText and Send ImageButton -->
+        <ImageButton
+            android:id="@+id/btnClear"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/sampah"
+            android:contentDescription="Delete"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="2dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true" />
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +64,8 @@
         android:background="@drawable/text"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="2dp">
+        android:padding="2dp"
+        android:layout_marginTop="16dp">
 
         <EditText
             android:id="@+id/etChatInput"

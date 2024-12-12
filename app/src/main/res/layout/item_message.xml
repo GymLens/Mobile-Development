@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
-
-    <!-- Bubble untuk User -->
     <TextView
         android:id="@+id/tvUserMessage"
         android:layout_width="wrap_content"
@@ -16,8 +14,6 @@
         android:textColor="#000000"
         android:textSize="16sp"
         android:visibility="gone" />
-
-    <!-- Bubble untuk Bot -->
     <TextView
         android:id="@+id/tvBotMessage"
         android:layout_width="wrap_content"
@@ -29,4 +25,5 @@
         android:textColor="#000000"
         android:textSize="16sp"
         android:visibility="gone" />
+
 </RelativeLayout>
