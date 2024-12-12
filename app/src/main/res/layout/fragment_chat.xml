@@ -75,7 +75,9 @@
             android:hint="Type your message"
             android:inputType="text"
             android:padding="8dp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:background="@android:color/transparent" />
+
 
         <ImageButton
             android:id="@+id/btnSend"
