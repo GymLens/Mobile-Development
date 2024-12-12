@@ -29,7 +29,6 @@ class SignInViewModel : ViewModel() {
                 } else {
                     val exception = task.exception
                     when (exception) {
-                        // Handle specific Firebase exceptions
                         is com.google.firebase.auth.FirebaseAuthInvalidCredentialsException -> {
                             _loginStatus.value = LoginStatus.Error("Kredensial tidak valid.")
                         }
