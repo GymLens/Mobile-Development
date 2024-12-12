@@ -80,7 +80,7 @@ class SignInActivity : AppCompatActivity() {
                     navigateToMainActivity(user.displayName ?: "Pengguna")
                 }
             } else {
-                showDialog("Login Gagal", task.exception?.message ?: "Kesalahan tidak diketahui.")
+                showDialog("Login Gagal", "Login gagal. Silakan periksa kembali email dan password Anda.")
             }
         }
     }
