@@ -13,13 +13,13 @@
 - **Running Activity Tracker**  
   <p align="justify"> Tracks running activities, measuring distance and duration.
   <p align="center"> 
-   <img src="https://github.com/user-attachments/assets/57a25ae4-703f-47b0-a2ad-00a34a3a9173" alt="App" style="width:40%; height:auto;">
+   <img src="https://github.com/user-attachments/assets/b7c080d6-50db-4374-af3d-3235b9efa843" alt="App" style="width:40%; height:auto;">
   </p>
   
 - **Chatbot Assistance**  
   <p align="justify"> A chatbot that provides fitness advice, workout plans, and more.
    <p align="center"> 
-   <img src="https://github.com/user-attachments/assets/cb389a92-f8af-49d2-b8c6-e2071de24825" alt="App" style="width:40%; height:auto;">
+   <img src="https://github.com/user-attachments/assets/58ff2538-b35e-457b-ac62-afcdf21d6679" alt="App" style="width:40%; height:auto;">
   </p>
 
 - **Educational Articles**  
